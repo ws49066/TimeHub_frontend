@@ -52,7 +52,7 @@ export default function AdminLogin() {
 
                 <button
                     disabled={loading}
-                    className="w-full bg-black text-white mt-2 rounded font-medium h-9 text-sm"
+                    className="w-full bg-black text-white mt-2 rounded font-medium h-10 text-sm"
                 >
                     {loading ? 'Entrando...' : 'Acessar Conta'}
                 </button>

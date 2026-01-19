@@ -17,7 +17,7 @@ export function Input({ label, error, required, stylesOverride, ...props }: Inpu
         className={`
             w-full
             px-3
-            h-11
+            h-10
             border
             rounded
             font-normal
