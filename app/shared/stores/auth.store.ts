@@ -9,7 +9,7 @@ type AuthState = {
     user: User | null
     loading: boolean
     error: string | null
-    login: (data: LoginFormData, type_user: string) => Promise<void>
+    login: (data: LoginFormData, type_user: string, role?: string) => Promise<void>
     logout: () => void
 }
 
@@ -19,13 +19,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     loading: false,
     error: null,
 
-    login: async ({ email, password }, type_user) => {
+    login: async ({ email, password }, type_user, role) => {
         try {
             set({ loading: true, error: null })
 
             const response = await api.post(`/${type_user}/login`, {
                 email,
                 password,
+                role
             })
 
             const token = response.data.data.token

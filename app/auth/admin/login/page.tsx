@@ -21,17 +21,17 @@ export default function AdminLogin() {
 
     async function onSubmit(formData: LoginForm) {
 
-        await login(formData, 'administrator')
+        await login(formData, 'administrator', 'admin')
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-6 flex flex-col mb-6 justify-center items-center">
                 <Logo />
-                <h1 className="text-2xl font-semibold">Login Admin</h1>
+                <h1 className="text-xl font-semibold">Login Admin</h1>
             </div>
 
-            <div className="bg-white rounded-md shadow-sm p-6 space-y-3">
+            <div className="bg-white rounded-md shadow-sm p-6 space-y-2">
 
                 <Input
                     label="E-mail"
@@ -44,7 +44,7 @@ export default function AdminLogin() {
                 <Input
                     label="Senha de acesso"
                     type="password"
-                    stylesOverride="text-3xl"
+                    // stylesOverride="text-xl"
                     required
                     {...register('password')}
                     error={errors.password?.message}
@@ -52,7 +52,7 @@ export default function AdminLogin() {
 
                 <button
                     disabled={loading}
-                    className="w-full bg-black text-white p-3 mt-2 rounded font-medium"
+                    className="w-full bg-black text-white mt-2 rounded font-medium h-9 text-sm"
                 >
                     {loading ? 'Entrando...' : 'Acessar Conta'}
                 </button>
