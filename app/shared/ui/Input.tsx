@@ -9,7 +9,7 @@ export function Input({ label, error, required, stylesOverride, ...props }: Inpu
   return (
     <div className="space-y-2">
       <div>
-        <label className="text-sm font-medium">{label} {required && <span className="font-normal text-xs">(Obrigatorio)</span>}</label>
+        <label className="text-xs font-medium">{label} {required && <span className="font-normal text-xs">(Obrigatorio)</span>}</label>
       </div>
 
       <input
@@ -23,6 +23,7 @@ export function Input({ label, error, required, stylesOverride, ...props }: Inpu
             font-normal
             ${ stylesOverride ?? 'text-sm' }
             leading-tight
+            md:h-11
           ${error ? 'border-red-500' : 'border-gray-300'}
         `}
       />
