@@ -16,28 +16,27 @@ export default function Logs() {
 
     const user = useAuthStore.getState().user;
 
-    const getLogs = async () => {
-        setLoading(true)
-        setError(null)
-
-        try {
-            const res = await api.get("/logs")
-            const data = res.data.data.logs
-
-            setLogs(data)
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Erro ao carregar os logs.")
-        } finally {
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
+        const getLogs = async () => {
+            setLoading(true)
+            setError(null)
+
+            try {
+                const res = await api.get("/logs")
+                const data = res.data.data.logs
+
+                setLogs(data)
+
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (err: any) {
+                setError(err.response?.data?.message || "Erro ao carregar os logs.")
+            } finally {
+                setLoading(false)
+            }
+        }
+
         getLogs()
-        console.log("logs", logs)
-    }, [])
+    }, [setLogs])
 
 
     const desc = user?.role === "admin" ? "Acompanhe todos os Logs dos clientes" : "Acompanhe todos os seus Logs";
