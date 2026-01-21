@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import { api } from "../shared/api/axios";
-import TableClients from "../components/TableClients";
+import MainLayout from "../../shared/components/Layout/MainLayout";
+import { api } from "../../shared/api/axios";
+import TableClients from "../../shared/components/TableClients";
+import { useAuthStore } from "../../shared/stores/auth.store";
+import { useRouter } from 'next/navigation'
 
 
 export interface IClientProps {
@@ -26,9 +28,12 @@ export interface IClientProps {
 
 
 export default function Clientes() {
+    const router = useRouter()
     const [clientes, setClients] = useState<IClientProps[]>([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const loadingToken = useAuthStore((state) => state.loadingToken)
+    const user = useAuthStore((state) => state.user)
 
     const getClients = async () => {
         setLoading(true)
@@ -47,8 +52,15 @@ export default function Clientes() {
     }
 
     useEffect(() => {
+        if (loadingToken) return
+
+        if (!user) {
+            router.replace('/auth/admin/login')
+            return
+        }
+        
         getClients()
-    }, [])
+    }, [loadingToken, user, router])
 
     const tableData = useMemo(() => {
         return clientes.map((item) => ({

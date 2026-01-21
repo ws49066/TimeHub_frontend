@@ -3,25 +3,26 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation"
 import { Logo } from "./Logo";
-import { useAuthStore } from "../shared/stores/auth.store";
+import { useAuthStore } from "../stores/auth.store";
 
 
 interface MenuItem {
   label: string
   href: string,
-  role?: string
+  role?: string,
 }
 
 const menuItems: MenuItem[] = [
   { label: "Agendamentos", href: "/agendamentos" },
   { label: "Clientes", href: "/clientes", role: "admin" },
   { label: "Logs", href: "/logs" },
-  { label: "Minha Conta", href: "/minha_conta", role: "client" },
+  { label: "Minha Conta", href: "/account", role: "client" },
 ]
 
 export default function Menu() {
   const pathname = usePathname()
   const role = useAuthStore((state) => state.user?.role)
+  const view_logs = useAuthStore((state) => state.user?.permissions.view_logs)
 
   return (
     <aside className="w-64 bg-[#F6F4F1] flex flex-col border-r border-[#D7D7D7]">
@@ -32,8 +33,12 @@ export default function Menu() {
         {menuItems.map((item) => {
           const isActive = pathname.startsWith(item.href)
 
+          const isViewLogs = item.href === "/logs" && !view_logs && role !== "admin"
+
+          console.log('isViewLogs', isViewLogs)
+
           return (
-            !item.role || item.role === role ? (
+            !isViewLogs && (!item.role || item.role === role) ? (
               <Link
                 href={item.href}
                 key={item.href}

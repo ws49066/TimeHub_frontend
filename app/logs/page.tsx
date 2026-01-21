@@ -1,10 +1,10 @@
 "use client"
 import { useEffect, useState } from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import { api } from "../shared/api/axios";
-import { PagePermissionGuard } from "../shared/guards/PagePermission";
-import TableLogs from "../components/TableLogs";
-import { useAuthStore } from "../shared/stores/auth.store";
+import MainLayout from "../../shared/components/Layout/MainLayout";
+import { api } from "../../shared/api/axios";
+import { PagePermissionGuard } from "../../shared/guards/PagePermission";
+import TableLogs from "../../shared/components/TableLogs";
+import { useAuthStore } from "../../shared/stores/auth.store";
 
 interface Log {
     id: number
@@ -36,8 +36,7 @@ export default function Logs() {
             }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            console.error(err)
-            setError("Erro ao carregar os logs.")
+            setError(err.response?.data?.message  || "Erro ao carregar os logs.")
         } finally {
             setLoading(false)
         }

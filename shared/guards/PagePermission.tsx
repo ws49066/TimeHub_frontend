@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/app/shared/stores/auth.store'
-import { IPermissions } from '@/app/shared/auth/auth.types'
+import { useAuthStore } from '@/shared/stores/auth.store'
+import { IPermissions } from '@/shared/auth/auth.types'
 
 type Props = {
   children: React.ReactNode
@@ -15,11 +15,9 @@ export function PagePermissionGuard({ children, permission }: Props) {
   const user = useAuthStore((state) => state.user)
   const loadingToken = useAuthStore((state) => state.loadingToken)
 
-  console.log('User in PagePermissionGuard:', user)
 
   useEffect(() => {
-    console.log('Checking permissions for user:', user)
-    console.log('Loading state:', loadingToken)
+
     if (loadingToken) return
 
     if (!user) {
@@ -27,9 +25,6 @@ export function PagePermissionGuard({ children, permission }: Props) {
       return
     }
 
-    if (user.role === "client" && permission && !user.permissions?.[permission]) {
-      router.replace('/403')
-    }
   }, [user, loadingToken, permission, router])
 
   if (loadingToken) return null

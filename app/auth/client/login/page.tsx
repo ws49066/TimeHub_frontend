@@ -1,8 +1,8 @@
 'use client'
 
-import { loginSchema } from "@/app/shared/auth/auth.schema"
-import { useAuthStore } from "@/app/shared/stores/auth.store"
-import { Input } from "@/app/shared/ui/Input"
+import { loginSchema } from "@/shared/auth/auth.schema"
+import { useAuthStore } from "@/shared/stores/auth.store"
+import { Input } from "@/shared/ui/Input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from 'next/navigation'
 import { useEffect } from "react"
@@ -37,47 +37,58 @@ export default function ClientLogin() {
   })
 
   return (
-    
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="space-y-6 flex flex-col mb-6 justify-center items-center">
-        <h1 className="text-xl font-semibold md:text-[28px]">Entre na sua conta</h1>
-      </div>
-
-      <div className="bg-white rounded-md shadow-sm p-6 space-y-2">
-
-        <Input
-          label="E-mail"
-          placeholder="Insira seu e-mail"
-          type="email"
-          required
-          {...register('email')}
-          error={errors.email?.message}
-        />
-
-        <Input
-          label="Senha de acesso"
-          type="password"
-          placeholder="Insira sua senha"
-          required
-          {...register('password')}
-          error={errors.password?.message}
-        />
-
+    <>
+      {/* <header className="absolute flex w-full border-b border-[#D7D7D7] justify-between px-24 py-5">
+        <Logo />
         <button
-          disabled={loading || !isValid}
-          className="w-full bg-black text-white mt-2 rounded font-semibold  h-10 text-sm md:h-11 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#D5D5D5]"
+          className=" bg-black text-white rounded font-semibold w-48 h-10 text-sm md:h-11 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#D5D5D5]"
         >
-          {loading ? 'Entrando...' : 'Acessar Conta'}
+          Cadastre-se
         </button>
 
-        <div className="flex text-xs justify-between mt-2 md:text-sm">
-          <span className="">Ainda não tem uma cadastro?</span>
-          <a href="/register/client" className="font-bold underline mr-5">Cadastre-se</a>
+      </header> */}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="space-y-6 flex flex-col mb-6 justify-center items-center">
+          <h1 className="text-xl font-semibold md:text-[28px]">Entre na sua conta</h1>
         </div>
-      </div>
-      {error && (
-        <p className="text-red-500 text-sm text-center">{error}</p>
-      )}
-    </form>
+
+        <div className="bg-white rounded-md shadow-sm p-6 space-y-2">
+
+          <Input
+            label="E-mail"
+            placeholder="Insira seu e-mail"
+            type="email"
+            required
+            {...register('email')}
+            error={errors.email?.message}
+          />
+
+          <Input
+            label="Senha de acesso"
+            type="password"
+            placeholder="Insira sua senha"
+            required
+            {...register('password')}
+            error={errors.password?.message}
+          />
+
+          <button
+            disabled={loading || !isValid}
+            className="w-full bg-black text-white mt-2 rounded font-semibold  h-10 text-sm md:h-11 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#D5D5D5]"
+          >
+            {loading ? 'Entrando...' : 'Acessar Conta'}
+          </button>
+
+          <div className="flex text-xs justify-between mt-2 md:text-sm">
+            <span className="">Ainda não tem uma cadastro?</span>
+            <a href="/register/client" className="font-bold underline mr-5">Cadastre-se</a>
+          </div>
+        </div>
+        {error && (
+          <p className="text-red-500 text-sm text-center">{error}</p>
+        )}
+      </form>
+    </>
+
   )
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from 'next/font/google'
 import "./globals.css";
-import { AuthHydrate } from "./shared/auth/AuthHydrate";
+import { AuthHydrate } from "../shared/auth/AuthHydrate";
 
 const montserrat = Montserrat({
   subsets: ['latin'],

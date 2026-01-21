@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import TableSchedule from "../components/TableSchedule";
-import { PagePermissionGuard } from "../shared/guards/PagePermission";
-import { api } from "../shared/api/axios";
-import { useAuthStore } from "../shared/stores/auth.store";
+import MainLayout from "../../shared/components/Layout/MainLayout";
+import TableSchedule from "../../shared/components/TableSchedule";
+import { PagePermissionGuard } from "../../shared/guards/PagePermission";
+import { api } from "../../shared/api/axios";
+import { useAuthStore } from "../../shared/stores/auth.store";
 
 interface IAgendamento {
     id: number
@@ -41,7 +41,7 @@ export default function Agendamentos() {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error(err)
-            setError("Erro ao carregar os agendamentos.")
+            setError(err.response?.data?.message || "Erro ao buscar agendamentos")
         } finally {
             setLoading(false)
         }
@@ -59,12 +59,7 @@ export default function Agendamentos() {
             data_hora: `${new Date(item.date).toLocaleDateString("pt-BR")} às ${item.hour}`,
             cliente_nome: item.client.nome,
             sala: item.room.room,
-            status:
-                item.status === "approved"
-                    ? "Agendado"
-                    : item.status === "cancelled"
-                        ? "Cancelado"
-                        : "Em análise",
+            status:item.status
         }))
     }, [agendamentos])
 

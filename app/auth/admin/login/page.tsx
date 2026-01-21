@@ -1,9 +1,9 @@
 'use client'
 
-import { loginSchema } from "@/app/shared/auth/auth.schema"
-import { useAuthStore } from "@/app/shared/stores/auth.store"
-import { Input } from "@/app/shared/ui/Input"
-import { Logo } from "@/app/components/Logo"
+import { loginSchema } from "@/shared/auth/auth.schema"
+import { useAuthStore } from "@/shared/stores/auth.store"
+import { Input } from "@/shared/ui/Input"
+import { Logo } from "@/shared/components/Logo"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
 import z from "zod"
@@ -14,6 +14,7 @@ type LoginForm = z.infer<typeof loginSchema>
 
 export default function AdminLogin() {
     const { login, error, loading, user } = useAuthStore()
+    
     const router = useRouter()
     
     const {
