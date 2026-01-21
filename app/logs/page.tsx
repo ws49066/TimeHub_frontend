@@ -5,20 +5,14 @@ import { api } from "../../shared/api/axios";
 import { PagePermissionGuard } from "../../shared/guards/PagePermission";
 import TableLogs from "../../shared/components/TableLogs";
 import { useAuthStore } from "../../shared/stores/auth.store";
-
-interface Log {
-    id: number
-    clientId: number
-    action: string
-    module: string
-    createdAt: string
-}
+import { useLogsStore } from "./logs.store";
 
 
 export default function Logs() {
-    const [logs, setLogs] = useState<Log[]>([])
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const { logs, setLogs } = useLogsStore()
 
     const user = useAuthStore.getState().user;
 
@@ -28,15 +22,13 @@ export default function Logs() {
 
         try {
             const res = await api.get("/logs")
+            const data = res.data.data.logs
 
-            if (res.data && res.data.data && res.data.data.logs) {
-                setLogs(res.data.data.logs)
-            } else {
-                setLogs([])
-            }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            setLogs(data)
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            setError(err.response?.data?.message  || "Erro ao carregar os logs.")
+            setError(err.response?.data?.message || "Erro ao carregar os logs.")
         } finally {
             setLoading(false)
         }
@@ -44,15 +36,9 @@ export default function Logs() {
 
     useEffect(() => {
         getLogs()
+        console.log("logs", logs)
     }, [])
 
-    // Mapeia os logs para o formato do TableLogs
-    const tableData = logs.map((log) => ({
-        id: log.id,
-        action: log.action,
-        module: log.module,
-        hour: new Date(log.createdAt).toLocaleString("pt-BR").replace(",", " ás")
-    }))
 
     const desc = user?.role === "admin" ? "Acompanhe todos os Logs dos clientes" : "Acompanhe todos os seus Logs";
 
@@ -67,7 +53,7 @@ export default function Logs() {
 
                 {!loading && logs.length === 0 && <p>Nenhum log encontrado.</p>}
 
-                {logs.length > 0 && <TableLogs data={tableData} />}
+                {logs.length > 0 && <TableLogs />}
             </MainLayout>
         </PagePermissionGuard>
     );

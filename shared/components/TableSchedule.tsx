@@ -6,10 +6,10 @@ import { IUpdateState } from "@/features/agendamentos/types/Agendamento.types";
 
 
 interface dataProp {
-  id: number; 
-  data_hora: string; 
-  cliente_nome: string; 
-  sala: string, 
+  id: number;
+  data_hora: string;
+  cliente_nome: string;
+  sala: string,
   status: string
 }
 
@@ -21,7 +21,7 @@ export default function TableSchedule({ data }: TableProps) {
   const [open, setOpen] = useState(false);
   const [openAgendamento, setOpenAgendamento] = useState(false);
 
-  const ChangeStatus = async (data : dataProp, newStatus: "canceled" | "confirmed") => {
+  const ChangeStatus = async (data: dataProp, newStatus: "canceled" | "confirmed") => {
     const payload: IUpdateState = {
       id: String(data.id),
       status: newStatus
@@ -33,6 +33,7 @@ export default function TableSchedule({ data }: TableProps) {
 
   return (
     <div className="overflow-auto rounded-lg bg-white border border-[#D7D7D7]">
+
       <button
         onClick={() => setOpen(true)}
         className="w-full bg-black text-white mt-2 rounded font-semibold  h-10 text-sm md:h-11 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#D5D5D5]"
@@ -44,7 +45,7 @@ export default function TableSchedule({ data }: TableProps) {
         onClick={() => setOpenAgendamento(true)}
         className="w-full bg-black text-white mt-2 rounded font-semibold  h-10 text-sm md:h-11 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#D5D5D5]"
       >
-        MODAL AGENDAMENTO 
+        MODAL AGENDAMENTO
       </button>
 
       <table className="min-w-full divide-y divide-gray-200">
@@ -68,8 +69,7 @@ export default function TableSchedule({ data }: TableProps) {
               <td className="px-6 py-4">{item.sala}</td>
               <td className="px-6 py-4">
                 <span
-                  className={`px-2 py-1 rounded-full text-xs ${
-                    item.status === "confirmed"
+                  className={`px-2 py-1 rounded-full text-xs ${item.status === "confirmed"
                     ? "bg-green-100 text-green-700"
                     : item.status === "canceled"
                       ? "bg-red-100 text-red-700"
