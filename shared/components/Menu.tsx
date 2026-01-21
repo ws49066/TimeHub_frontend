@@ -35,8 +35,6 @@ export default function Menu() {
 
           const isViewLogs = item.href === "/logs" && !view_logs && role !== "admin"
 
-          console.log('isViewLogs', isViewLogs)
-
           return (
             !isViewLogs && (!item.role || item.role === role) ? (
               <Link

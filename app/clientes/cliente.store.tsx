@@ -1,5 +1,5 @@
-import { ILog } from '@/shared/components/TableLogs'
 import { create } from 'zustand'
+import { IClientProps } from './page'
 
 type Filters = {
     search: string
@@ -7,19 +7,20 @@ type Filters = {
     date: string | null
 }
 
-type LogsStore = {
-    logs: ILog[]
+type ClientsStore = {
+    clients: IClientProps[]
     filters: Filters
     page: number
     pageSize: number
 
-    setLogs: (logs: ILog[]) => void
+    setLogs: (clients: IClientProps[]) => void
     setFilters: (filters: Partial<Filters>) => void
     setPage: (page: number) => void
+
 }
 
-export const useLogsStore = create<LogsStore>((set) => ({
-    logs: [],
+export const useClientStore = create<ClientsStore>((set) => ({
+    clients: [],
     page: 1,
     pageSize: 10,
 
@@ -29,7 +30,7 @@ export const useLogsStore = create<LogsStore>((set) => ({
         date: null,
     },
 
-    setLogs: (logs) => set({ logs }),
+    setLogs: (clients) => set({ clients }),
     setFilters: (filters) =>
         set((state) => ({
             filters: { ...state.filters, ...filters },

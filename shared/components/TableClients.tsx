@@ -1,3 +1,24 @@
+import { clientsService } from "@/app/clientes/client.service"
+
+interface dataProp {
+  id: number
+  data_hora: string
+  cliente_nome: string
+  endereco: string
+  create_appointment: string
+  view_logs: string
+  access_system: string
+}
+
+export interface IPayload {
+
+  clientId: number | string,
+  access_system?: boolean,
+  view_logs?: boolean,
+  create_appointment?: boolean
+
+}
+
 type TableProps = {
   data: {
     id: number
@@ -10,7 +31,23 @@ type TableProps = {
   }[];
 };
 
+
+
 export default function TableClients({ data }: TableProps) {
+
+  const ChangePermissions = async (
+    data: dataProp,
+    permissions: "create_appointment" | "view_logs" | "access_system",
+    change: boolean
+  ) => {
+    const payload: IPayload = {
+      clientId: data.id,
+      [permissions]: change
+    }
+
+    await clientsService.updatedPermission(payload)
+  }
+
   return (
     <div className="overflow-auto rounded-lg bg-white border border-[#D7D7D7]">
       <table className="min-w-full divide-y divide-gray-200">
@@ -34,21 +71,21 @@ export default function TableClients({ data }: TableProps) {
               <td className="px-6 py-4">{item.endereco}</td>
               <td className="px-6 py-4 space-x-2">
                 <button
-                  disabled={!item.create_appointment}
-                  className="px-4 py-2 rounded-full bg-black text-white text-xs disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-white">
+                  onClick={() => ChangePermissions(item, "create_appointment", !item.create_appointment)}
+                  className={`px-4 py-2 rounded-full ${!item.create_appointment ? "border text-xs disabled:opacity-50  bg-white" : " bg-black text-white"} `}>
                   Agendamento
                 </button>
 
                 <button
-                  disabled={!item.view_logs}
-                  className="px-4 py-2 rounded-full bg-black text-white text-xs disabled:cursor-not-allowed disabled:bg-white disabled:text-black disabled:border">
+                  onClick={() => ChangePermissions(item, "view_logs", !item.view_logs)}
+                  className={`px-4 py-2 rounded-full ${!item.view_logs ? "border text-xs opacity-50  bg-white" : " bg-black text-white"} `}>
                   Logs
                 </button>
               </td>
               <td className="px-6 py-4">
                 <button
-                  disabled={!item.access_system}
-                  className="px-3 py-2 rounded-full bg-green-100 text-xs text-green-800">
+                  onClick={() => ChangePermissions(item, "access_system", !item.access_system)}
+                  className={`px-4 py-2 rounded-full ${!item.access_system ? "border text-xs opacity-50  bg-white" : " bg-black text-white"} `}>
                   Ativo
                 </button>
               </td>
