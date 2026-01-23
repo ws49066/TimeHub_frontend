@@ -10,9 +10,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useRoomsStore } from "../../rooms/stores/room.store";
 import { Input } from "../../../shared/ui/Input";
 import { Select } from "../../../shared/ui/Select";
+import dayjs, { Dayjs } from 'dayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { TimePicker } from "@mui/x-date-pickers";
+import { Controller } from 'react-hook-form'
+import { useAgendamentosStore } from "../../../app/(private)/agendamentos/agendamento.store";
+import { TimeInput } from "../../../shared/ui/TimeInput";
+
+
 
 export function AgendamentoModal({ onClose }: { onClose: () => void }) {
     const { rooms, fetchRooms } = useRoomsStore()
+    const { fetchAgendamento } = useAgendamentosStore()
     const { createAgendamento } = agendamentoService
     const [loading, setLoading] = useState(false)
 
@@ -20,6 +30,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
 
     const {
         register,
+        control,
         handleSubmit,
         formState: { errors, isValid },
     } = useForm<AgendamentoFormData>({
@@ -31,6 +42,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
         setLoading(true)
         try {
             await createAgendamento(data)
+            await fetchAgendamento()
             onClose()
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -99,13 +111,35 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
                             error={errors.date?.message}
                         />
 
-                        <Input
+
+
+                        {/* <Input
                             label="Selecione um horário"
                             type="time"
                             required
                             {...register('hour')}
                             error={errors.hour?.message}
+                        /> */}
+
+                        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['TimeField']}>
+                                <TimePicker
+                                    label="Selecione a hora"
+                                    timeSteps={{ minutes: 30 }}
+                                    views={['hours', 'minutes']}
+                                    ampm={false}
+                                />
+                            </DemoContainer>
+                        </LocalizationProvider> */}
+                        <TimeInput
+                            label="Selecione um horário"
+                            name="hour"
+                            control={control}
+                            required
+                            error={errors.hour?.message}
                         />
+
+
 
                         <Select
                             label="Selecione uma Sala"

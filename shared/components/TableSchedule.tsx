@@ -52,6 +52,7 @@ export default function TableSchedule({ data }: TableProps) {
       status: newStatus
     }
     await agendamentoService.updatedState(payload)
+    await fetchAgendamento()
   }
 
   const modalButtonByUser = () => {
@@ -126,11 +127,11 @@ export default function TableSchedule({ data }: TableProps) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data Agendamento</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nome</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sala de agendamento</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Data agendamento</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Nome</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Sala de agendamento</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Ações</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -163,12 +164,14 @@ export default function TableSchedule({ data }: TableProps) {
                           : "bg-[#f5f5f5] border border-[#A4AAAD] text-[#676767]"
                         }`}
                     >
-                      {item.status}
+                      {item.status === "confirmed" ? "Confirmado" : item.status === "canceled" ? "Cancelado" : "Em revisão"}
                     </span>
                   </td>
                   <td className="px-6 py-4 flex gap-2">
-                    <button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-red-700" onClick={() => ChangeStatus(item, "canceled")} > <X /> </button>
-                    <button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-green-700" onClick={() => ChangeStatus(item, "confirmed")}>    <Check /></button>
+                    {item.status === "canceled" ? null : ( <button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-red-700" onClick={() => ChangeStatus(item, "canceled")} > <X /> </button>)}
+                   
+                    {user?.role === 'admin' && item.status === "in_review" && (  <button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-green-700" onClick={() => ChangeStatus(item, "confirmed")}>    <Check /></button>)}
+                  
                   </td>
                 </tr>
               ))}

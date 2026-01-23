@@ -1,6 +1,6 @@
 'use client'
 
-import { X } from 'lucide-react'
+import { Plus, X } from 'lucide-react'
 import { useRoomsStore } from '../stores/room.store'
 import { useEffect, useState } from 'react'
 import { IRoom } from '../types/room.types'
@@ -12,20 +12,54 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
     const [editableRooms, setEditableRooms] = useState<IRoom[]>([])
     const [isCreatingRoom, setIsCreatingRoom] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [roomsValidity, setRoomsValidity] = useState<boolean[]>([])
+
 
     useEffect(() => {
         fetchRooms()
+        
     }, [fetchRooms])
 
     useEffect(() => {
         setEditableRooms(rooms)
+        setRoomsValidity(rooms.map(() => true)) // 👈 MUITO IMPORTANTE
     }, [rooms])
 
-    function handleUpdate(index: number, updated: IRoom) {
-        const copy = [...editableRooms]
-        copy[index] = updated
-        setEditableRooms(copy)
+
+    function handleUpdate(
+        index: number,
+        updated: IRoom,
+        isValid: boolean
+    ) {
+        setEditableRooms(prev => {
+            const current = prev[index]
+
+            // 🔑 evita loop infinito
+            const hasChanged =
+                current.room !== updated.room ||
+                current.start_time !== updated.start_time ||
+                current.end_time !== updated.end_time ||
+                current.hour_block !== updated.hour_block
+
+            if (!hasChanged) return prev
+
+            const copy = [...prev]
+            copy[index] = updated
+            return copy
+        })
+
+        setRoomsValidity(prev => {
+            if (prev[index] === isValid) return prev
+
+            const copy = [...prev]
+            copy[index] = isValid
+            return copy
+        })
+
     }
+
+
+
 
     async function handleSave() {
         try {
@@ -42,39 +76,36 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
             }
 
             await updateRoom(payload)
-            setLoading(true)
-
             onClose()
         } catch (err) {
-            console.error('Erro ao salvar salas', err)
+            console.error(err)
         } finally {
             setLoading(false)
         }
     }
 
+    const isFormValid =
+        roomsValidity.length === editableRooms.length &&
+        roomsValidity.every(Boolean)
+
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-3">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
             <div
                 className="
-      bg-white
-      w-full
-      sm:w-[375px]
-      sm:h-[500px]
-      rounded-[5px]
-      border border-[#D7D7D7]
-      shadow-lg
-      flex
-      flex-col
-      max-h-[90vh]
-    "
+          bg-white
+          w-full
+          max-w-[375px]
+          h-[500px]
+          rounded-[5px]
+          border border-[#D7D7D7]
+          flex flex-col
+        "
             >
-
                 {/* Header */}
-                <div className="flex justify-between items-center px-6 py-4 border-b">
+                <div className="flex justify-between items-center px-5 py-4 border-b border-[#D7D7D7]">
                     <h2 className="text-base font-semibold">
-                        {isCreatingRoom ? "Adicionar nova Sala" : "Ajustes de agendamento"}
-
+                        {isCreatingRoom ? 'Adicionar nova Sala' : 'Ajustes de salas'}
                     </h2>
                     <button onClick={onClose}>
                         <X size={18} />
@@ -82,50 +113,54 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
                 </div>
 
                 {/* Body */}
-                <div className="px-6 py-4 space-y-4 h-9/12 flex-1 overflow-y-auto">
-
-
-                    {isCreatingRoom ?
-                        (<RoomForm onCancel={() => setIsCreatingRoom(false)} />) :
+                <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+                    {isCreatingRoom ? (
+                        <RoomForm onCancel={() => setIsCreatingRoom(false)} />
+                    ) : (
                         <>
-                            {
-                                editableRooms.map((room, index) => (
+                            {editableRooms.map((room, index) => (
+                                <RoomItem
+                                    key={room.id}
+                                    room={room}
+                                    onChange={(updated, isValid) =>
+                                        handleUpdate(index, updated, isValid)
+                                    }
+                                />
+                            ))}
 
-                                    <RoomItem
-                                        key={room.id}
-                                        room={room}
-                                        onChange={(updated) => handleUpdate(index, updated)}
-                                    />
 
-
-
-                                ))
-
-                            }
                             <button
                                 type="button"
                                 onClick={() => setIsCreatingRoom(true)}
-                                className="text-sm underline mt-4"
+                                className="text-[16px] font-medium underline flex justify-center items-center gap-2 mt-2"
                             >
-                                + Criar nova sala
+                                <Plus width={20} height={20}/> <span>Adicionar nova sala</span>
                             </button>
                         </>
-                    }
-
-
-
+                    )}
                 </div>
 
-                <div className='flex border-t justify-center p-4'>
-
-                    <button
-                        onClick={handleSave}
-                        disabled={loading}
-                        className="w-81.5 bg-black text-white h-11 rounded"
-                    >
-                        {loading ? 'Salvando...' : 'Salvar ajustes'}
-                    </button>
-                </div>
+                {/* Footer */}
+                {!isCreatingRoom && (
+                    <div className="border-t border-[#D7D7D7] px-5 py-4 shadow-[0px_0px_13px_0px_#000000]">
+                        <button
+                            onClick={handleSave}
+                            disabled={!isFormValid || loading}
+                            className="
+                w-full
+                h-11
+                bg-black
+                text-white
+                rounded-[5px]
+                font-semibold
+                disabled:bg-[#D5D5D5]
+                disabled:cursor-not-allowed
+              "
+                        >
+                            {loading ? 'Salvando...' : 'Salvar ajustes'}
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )

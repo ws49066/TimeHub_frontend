@@ -1,52 +1,83 @@
 import { useForm } from "react-hook-form"
-import { IRoom } from "../types/room.types"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { IRoom } from "../types/room.types"
 import { RoomFormData, roomSchema } from "../schemas/room.schema"
+import { Input } from "../../../shared/ui/Input"
+import { Select } from "../../../shared/ui/Select"
+import { useEffect } from "react"
 
 type Props = {
   room: IRoom
-  onChange: (updated: IRoom) => void
+  onChange: (updated: IRoom, isValid: boolean) => void
 }
 
 export function RoomItem({ room, onChange }: Props) {
   const {
     register,
-    handleSubmit,
+    watch,
+    setValue,
+    trigger,
     formState: { errors, isValid },
   } = useForm<RoomFormData>({
     resolver: zodResolver(roomSchema),
-    mode: 'onChange'
+    mode: "onChange",
+    defaultValues: {
+      room: room.room,
+      startTime: room.start_time,
+      endTime: room.end_time,
+       hourBlock: room.hour_block === 30 ? "30" : "60",
+    },
   })
+
+  const values = watch()
+
+  // 🔑 sincroniza com o pai SEM loop
+  useEffect(() => {
+    onChange(
+      {
+        ...room,
+        room: values.room,
+        start_time: values.startTime,
+        end_time: values.endTime,
+        hour_block: Number(values.hourBlock),
+      },
+      isValid
+    )
+  }, [values, isValid]) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <div className="border rounded p-3 space-y-2">
-      <input
-        value={room.room}
-        onChange={(e) => onChange({ ...room, room: e.target.value })}
-        className="w-full border p-2 rounded"
+    <div className="pb-4 mb-4 border-b border-[#D7D7D7] space-y-3">
+      <Input
+        label="Nome da sala"
+        {...register("room")}
+        error={errors.room?.message}
       />
 
-      <div className="flex gap-2">
-        <input
+      <div className="flex gap-3">
+        <Input
+          label="Início"
           type="time"
-          value={room.start_time}
-          onChange={(e) => onChange({ ...room, start_time: e.target.value })}
+          {...register("startTime")}
+          error={errors.startTime?.message}
         />
-        <input
+
+        <Input
+          label="Fim"
           type="time"
-          value={room.end_time}
-          onChange={(e) => onChange({ ...room, end_time: e.target.value })}
+          {...register("endTime")}
+          error={errors.endTime?.message}
         />
       </div>
 
-      <select
-        value={room.hour_block}
-        onChange={(e) =>
-          onChange({ ...room, hour_block: Number(e.target.value) })
-        }
-      >
-        <option value={30}>30 minutos</option>
-        <option value={60}>60 minutos</option>
-      </select>
+      <Select
+        label="Intervalo"
+        options={[
+          { label: "30 minutos", value: "30" },
+          { label: "60 minutos", value: "60" },
+        ]}
+        {...register("hourBlock")}
+        error={errors.hourBlock?.message}
+      />
     </div>
   )
 }
