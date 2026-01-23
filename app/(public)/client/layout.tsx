@@ -19,7 +19,7 @@ export default function AuthClientLayout({
   const handleClick = () => {
     if (isRegister) {
       router.push('/client/login')
-    }else{
+    } else {
       router.push("/client/register")
     }
 
@@ -27,33 +27,41 @@ export default function AuthClientLayout({
 
 
   return (
-    <>
-      <header className="absolute flex w-full border-b border-[#D7D7D7] justify-between py-5 px-25 gap-10">
+    <div className="min-h-screen flex flex-col items-center px-2 sm:px-4">
+      <header className="w-full border-b border-[#D7D7D7] justify-between py-5 sm:px-25">
         <div className="flex w-full justify-between">
 
           <Logo width={43.7} height={43.7} />
           <button
             onClick={() => handleClick()}
-            className=" bg-black text-white rounded-[5px] font-medium text-[16px] h-11 py-2.25 px-7.5"
+            className=" bg-black text-white rounded-[5px] font-medium text-sm py-2 px-3 sm:text-[16px] sm:py-2.25 sm:px-7.5"
           >
             {isRegister ? "Login" : "Cadastre-se"}
           </button>
         </div>
 
       </header>
+
+
+
+
       <section className="
                 w-full 
                 sm:max-w-sm
                 md:max-w-md
-                absolute
-                top-59.25
-                left-124
-                gap-6.25
+                mt-40
+                md:mt-40
+                lg:mt-0
+                lg:absolute
+                lg:top-59.25
                 "
       >
 
         {children}
       </section>
-    </>
+
+
+
+    </div>
   )
 }

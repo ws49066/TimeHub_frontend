@@ -40,13 +40,20 @@ export default function ClientRegister() {
 
     return (
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6.25 mb-60">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6.25 mb-60 -mt-20">
             <h1 className="text-center font-semibold text-[28px] leading-12.5">Cadastre-se</h1>
 
-            <div className="bg-white rounded-[5px] border p-7.5 gap-2.5 flex flex-col border-[#d7d7d7]">
+            <div className="                           bg-white 
+                            rounded-[5px] 
+                            border 
+                            border-[#d7d7d7]
+                            flex 
+                            flex-col 
+                            gap-2.5
+                          p-3 sm:p-4 md:p-7.5">
                 <div className="flex flex-col gap-5">
                     <div className="flex flex-col gap-3.75">
-                        <div className='flex gap-5'>
+                        <div className='flex flex-col gap-4 sm:flex-row sm:gap-5'>
                             <Input
                                 label="Nome"
                                 placeholder='ex.: Jose'
@@ -147,7 +154,7 @@ export default function ClientRegister() {
                             disabled:cursor-not-allowed 
                             disabled:bg-[#D5D5D5]"
                     >
-                        Cadastrar-se
+                        Cadastrar
                     </button>
                 </div>
             </div>

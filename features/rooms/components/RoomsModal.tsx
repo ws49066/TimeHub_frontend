@@ -54,14 +54,27 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
 
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white flex flex-col w-full max-w-md h-9/12 rounded-xl shadow-lg">
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-3">
+            <div
+                className="
+      bg-white
+      w-full
+      sm:w-[375px]
+      sm:h-[500px]
+      rounded-[5px]
+      border border-[#D7D7D7]
+      shadow-lg
+      flex
+      flex-col
+      max-h-[90vh]
+    "
+            >
 
                 {/* Header */}
                 <div className="flex justify-between items-center px-6 py-4 border-b">
                     <h2 className="text-base font-semibold">
                         {isCreatingRoom ? "Adicionar nova Sala" : "Ajustes de agendamento"}
-                        
+
                     </h2>
                     <button onClick={onClose}>
                         <X size={18} />
@@ -69,7 +82,7 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
                 </div>
 
                 {/* Body */}
-                <div className="px-6 py-4 space-y-4 h-9/12 flex-1 overflow-y-auto bor">
+                <div className="px-6 py-4 space-y-4 h-9/12 flex-1 overflow-y-auto">
 
 
                     {isCreatingRoom ?

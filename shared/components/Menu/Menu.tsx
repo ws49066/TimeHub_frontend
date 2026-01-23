@@ -2,15 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation"
-import { Logo } from "./Logo";
-import { useAuthStore } from "../stores/auth.store";
-import { AgendaIcon } from "./icons/AgendaIcon";
-import { ClientsIcon } from "./icons/ClientsIcon";
-import { AccountIcon } from "./icons/AccountIcon";
-import { LogsIcons } from "./icons/LogsIcon";
+import { Logo } from "../Logo";
+import { useAuthStore } from "../../stores/auth.store";
+import { AgendaIcon } from "../icons/AgendaIcon";
+import { ClientsIcon } from "../icons/ClientsIcon";
+import { AccountIcon } from "../icons/AccountIcon";
+import { LogsIcons } from "../icons/LogsIcon";
 import * as Accordion from "@radix-ui/react-accordion"
 import { ChevronDown } from 'lucide-react';
-import { useRouter } from 'next/navigation'
 
 interface MenuItem {
   label: string
@@ -65,11 +64,12 @@ export default function Menu() {
   }
 
   return (
-    <aside className="w-65 bg-[#F6F4F1] flex flex-col border-r border-[#D7D7D7]">
-      <div className="border-b px-4 py-3.5 border-[#D7D7D7]">
+   
+    <div className="h-full w-64 bg-[#F6F4F1] flex flex-col border-r border-[#D7D7D7]">
+      <div className="hidden lg:flex border-b px-4 py-3.5 border-[#D7D7D7]">
         <Logo width={51.7} height={51.7} />
       </div>
-      <nav className="flex h-full flex-col gap-3 p-4">
+      <nav className="flex-1 flex flex-col gap-3 p-4">
         {menuItems.map((item) => {
           const isActive = pathname.startsWith(item.href)
 
@@ -136,8 +136,17 @@ export default function Menu() {
             <div className="px-4 py-3">
               <button
                 className="
-                w-full rounded-md text-center py-2 text-sm
-                text-red-600 hover:bg-red-200
+               w-full
+    bg-black
+    text-white
+    py-2.5
+    rounded-[5px]
+    font-semibold
+    text-[16px]
+    h-11
+    disabled:opacity-50
+    disabled:cursor-not-allowed
+    disabled:bg-[#D5D5D5]
               "
                 onClick={() => handlerLogout()}
               >
@@ -147,7 +156,7 @@ export default function Menu() {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-    </aside>
+    </div>
 
 
   );

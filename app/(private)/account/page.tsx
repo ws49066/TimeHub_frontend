@@ -62,17 +62,31 @@ export default function ClientRegister() {
             >
 
                 <section className="
-                    flex
-                    justify-center
-                    m-3.5                    
+flex justify-center px-2 sm:px-4                   
                 "
                 >
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6.25 mb-60 w-md">
-                        <div className="bg-white rounded-[5px] border p-7.5 gap-2.5 flex flex-col border-[#d7d7d7]">
+                    <form onSubmit={handleSubmit(onSubmit)} className="
+ w-full
+    max-w-md
+    
+    sm:px-0
+    box-border
+                        ">
+                        <div className=" 
+                            bg-white 
+                            rounded-[5px] 
+                            border 
+                            border-[#d7d7d7]
+                            flex 
+                            flex-col 
+                            gap-2.5
+                          p-3 sm:p-4 md:p-7.5
+                            ">
                             <div className="flex flex-col gap-5">
                                 <div className="flex flex-col gap-3.75">
-                                    <div className='flex gap-5'>
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:gap-5">
+
                                         <Input
                                             label="Nome"
                                             placeholder='ex.: Jose'
@@ -126,28 +140,33 @@ export default function ClientRegister() {
                                         {...register('endereco')}
                                     />
 
-                                    <Input
-                                        label="Número"
-                                        type='number'
-                                        {...register('numero')}
-                                    />
+                                    {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-5"> */}
+                                        <Input
+                                            label="Número"
+                                            type="number"
+                                            {...register('numero')}
+                                        />
 
-                                    <Input
-                                        label="Complemento"
-                                        {...register('complemento')}
-                                    />
+                                        <Input
+                                            label="Complemento"
+                                            {...register('complemento')}
+                                        />
+                                    {/* </div> */}
 
-                                    <Input
-                                        label="Bairro"
-                                        disabled
-                                        {...register('bairro')}
-                                    />
+                                    {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-5"> */}
+                                        <Input
+                                            label="Bairro"
+                                            disabled
+                                            {...register('bairro')}
+                                        />
 
-                                    <Input
-                                        label="Cidade"
-                                        disabled
-                                        {...register('cidade')}
-                                    />
+                                        <Input
+                                            label="Cidade"
+                                            disabled
+                                            {...register('cidade')}
+                                        />
+                                    {/* </div> */}
+
 
                                     <Input
                                         label="Estado"

@@ -44,7 +44,7 @@ export function RoomForm({ onCancel }: RoomFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="border rounded p-3 space-y-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="rounded p-3 space-y-2">
       <Input
         label='Nome da Sala'
         placeholder="Nome da sala"
