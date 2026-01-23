@@ -8,10 +8,12 @@ export default function AuthAdminLayout({
                 w-full 
                 sm:max-w-sm
                 md:max-w-md
-                absolute
-                top-53
-                left-124
-                gap-7.5
+                -mt-40
+                sm:-mt-20
+                lg:top-35
+                lg:mt-0
+                xl:top-53
+                
                 "
         >
             {children}

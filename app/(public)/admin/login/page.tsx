@@ -40,7 +40,7 @@ export default function AdminLogin() {
     })
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-9">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7.5">
             <div className="flex flex-col items-center">
                 <Logo width={57.7} height={57.7} />
             </div>

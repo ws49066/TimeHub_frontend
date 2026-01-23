@@ -15,7 +15,7 @@ export function Input({ label, error, required, ...props }: InputProps) {
         {...props}
         className={`
             w-full
-            py-5
+            py-
             px-3.25
             h-11
             border
