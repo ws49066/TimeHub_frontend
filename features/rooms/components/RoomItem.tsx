@@ -15,35 +15,33 @@ export function RoomItem({ room, onChange }: Props) {
   const {
     register,
     watch,
-    setValue,
-    trigger,
     formState: { errors, isValid },
   } = useForm<RoomFormData>({
     resolver: zodResolver(roomSchema),
     mode: "onChange",
     defaultValues: {
       room: room.room,
-      startTime: room.start_time,
-      endTime: room.end_time,
-       hourBlock: room.hour_block === 30 ? "30" : "60",
+      timeRange: `${room.start_time} - ${room.end_time}`,
+      hourBlock: room.hour_block === 30 ? "30" : "60",
     },
   })
 
   const values = watch()
 
-  // 🔑 sincroniza com o pai SEM loop
   useEffect(() => {
+    const [start, end] = values.timeRange?.split(' - ') || [room.start_time, room.end_time]
+
     onChange(
       {
         ...room,
         room: values.room,
-        start_time: values.startTime,
-        end_time: values.endTime,
+        start_time: start,
+        end_time: end,
         hour_block: Number(values.hourBlock),
       },
       isValid
     )
-  }, [values, isValid]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [values, isValid, onChange, room])
 
   return (
     <div className="pb-4 mb-4 border-b border-[#D7D7D7] space-y-3">
@@ -53,21 +51,12 @@ export function RoomItem({ room, onChange }: Props) {
         error={errors.room?.message}
       />
 
-      <div className="flex gap-3">
-        <Input
-          label="Início"
-          type="time"
-          {...register("startTime")}
-          error={errors.startTime?.message}
-        />
-
-        <Input
-          label="Fim"
-          type="time"
-          {...register("endTime")}
-          error={errors.endTime?.message}
-        />
-      </div>
+      <Input
+        label="Horário"
+        placeholder="08:00 - 18:00"
+        {...register("timeRange")}
+        error={errors.timeRange?.message}
+      />
 
       <Select
         label="Intervalo"

@@ -29,12 +29,14 @@ export function RoomForm({ onCancel }: RoomFormProps) {
   })
 
   async function onSubmit(data: RoomFormData) {
+    const [start_time, end_time] = data.timeRange.split(' - ')
+
     const payload: IRoomList = {
       rooms: [
         {
           room: data.room,
-          start_time: data.startTime,
-          end_time: data.endTime,
+          start_time,
+          end_time,
           hour_block: Number(data.hourBlock),
         },
       ],
@@ -45,6 +47,7 @@ export function RoomForm({ onCancel }: RoomFormProps) {
     reset()
     onCancel()
   }
+
 
   return (
     <form
@@ -59,20 +62,13 @@ export function RoomForm({ onCancel }: RoomFormProps) {
           error={errors.room?.message}
         />
 
-        <div className="flex gap-2">
-          <Input
-            label="Horário"
-            type="time"
-            {...register("startTime")}
-            error={errors.startTime?.message}
-          />
-          <Input
-            label="até"
-            type="time"
-            {...register("endTime")}
-            error={errors.endTime?.message}
-          />
-        </div>
+        <Input
+          label="Horário"
+          placeholder="08:00 - 18:00"
+          {...register("timeRange")}
+          error={errors.timeRange?.message}
+        />
+
 
         <Select
           label="Intervalo"
