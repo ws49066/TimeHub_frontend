@@ -61,7 +61,7 @@ export default function Clientes() {
                 <p>Nenhum cliente encontrado.</p>
             )}
 
-            {tableData.length > 0 && <TableClients data={tableData} />}
+            {<TableClients data={tableData} />}
             {loading && <p>Carregando...</p>}
         </MainLayout>
 

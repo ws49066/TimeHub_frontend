@@ -61,7 +61,7 @@ export default function Agendamentos() {
                     <p>Nenhum agendamento encontrado.</p>
                 )}
 
-                {tableData?.length > 0 && <TableSchedule data={tableData} />}
+                { <TableSchedule data={tableData} />}
 
             </MainLayout>
         </PagePermissionGuard>

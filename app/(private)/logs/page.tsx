@@ -52,7 +52,7 @@ export default function Logs() {
 
                 {!loading && logs.length === 0 && <p>Nenhum log encontrado.</p>}
 
-                {logs.length > 0 && <TableLogs />}
+                {<TableLogs />}
             </MainLayout>
         </PagePermissionGuard>
     );
