@@ -4,32 +4,72 @@ import Link from "next/link";
 import { usePathname } from "next/navigation"
 import { Logo } from "./Logo";
 import { useAuthStore } from "../stores/auth.store";
-
+import { AgendaIcon } from "./icons/AgendaIcon";
+import { ClientsIcon } from "./icons/ClientsIcon";
+import { AccountIcon } from "./icons/AccountIcon";
+import { LogsIcons } from "./icons/LogsIcon";
+import * as Accordion from "@radix-ui/react-accordion"
+import { ChevronDown } from 'lucide-react';
+import { useRouter } from 'next/navigation'
 
 interface MenuItem {
   label: string
   href: string,
   role?: string,
+  icon: string
 }
 
+
 const menuItems: MenuItem[] = [
-  { label: "Agendamentos", href: "/agendamentos" },
-  { label: "Clientes", href: "/clientes", role: "admin" },
-  { label: "Logs", href: "/logs" },
-  { label: "Minha Conta", href: "/account", role: "client" },
+  { label: "Agendamentos", href: "/agendamentos", icon: "agenda" },
+  { label: "Clientes", href: "/clientes", role: "admin", icon: "clients" },
+  { label: "Logs", href: "/logs", icon: "logs" },
+  { label: "Minha Conta", href: "/account", role: "client", icon: "account" },
 ]
+
+const IconsGenerate = (icon, active) => {
+  if (icon === "agenda") {
+    return (
+      <AgendaIcon width={20} height={20} active={active} />
+    )
+  }
+  if (icon === "clients") {
+    return (
+      <ClientsIcon width={20} height={20} active={active} />
+    )
+  }
+  if (icon === "logs") {
+    return (
+      <LogsIcons width={20} height={20} active={active} />
+    )
+  }
+  if (icon === "account") {
+    return (
+      <AccountIcon width={20} height={20} active={active} />
+    )
+  }
+}
+
+
 
 export default function Menu() {
   const pathname = usePathname()
   const role = useAuthStore((state) => state.user?.role)
+  const nome = useAuthStore((state) => state.user?.nome)
+  const sobrenome = useAuthStore((state) => state.user?.sobrenome)
+  const { logout } = useAuthStore()
   const view_logs = useAuthStore((state) => state.user?.permissions.view_logs)
 
+  function handlerLogout() {
+    logout()
+  }
+
   return (
-    <aside className="w-64 bg-[#F6F4F1] flex flex-col border-r border-[#D7D7D7]">
-      <div className="border-b p-5 border-[#D7D7D7]">
-        <Logo />
+    <aside className="w-65 bg-[#F6F4F1] flex flex-col border-r border-[#D7D7D7]">
+      <div className="border-b px-4 py-3.5 border-[#D7D7D7]">
+        <Logo width={51.7} height={51.7} />
       </div>
-      <nav className="flex flex-col gap-3 p-4">
+      <nav className="flex h-full flex-col gap-3 p-4">
         {menuItems.map((item) => {
           const isActive = pathname.startsWith(item.href)
 
@@ -37,13 +77,19 @@ export default function Menu() {
 
           return (
             !isViewLogs && (!item.role || item.role === role) ? (
+
               <Link
                 href={item.href}
                 key={item.href}
-                className={`block px-4 py-2 rounded-md font-medium hover:bg-gray-700 transition-colors
-                  ${isActive ? "bg-black text-white" : "text-gray-700"}`}
+                className={`p-3 rounded-[5px] hover:bg-gray-500 transition-colors
+                  ${isActive ? "bg-black text-white" : "text-black"}`}
               >
-                {item.label}
+                <div className="flex gap-3.75 font-medium text-sm items-center">
+
+                  {IconsGenerate(item.icon, isActive)}
+                  {item.label}
+                </div>
+
               </Link>
             ) : null
 
@@ -52,10 +98,57 @@ export default function Menu() {
 
       </nav>
 
-      <div className="mt-auto mx-0 text-gray-500 text-sm border-t border-[#D7D7D7] p-4">
-        Mateus Barbosa <br />
-        Admin
-      </div>
+      <Accordion.Root type="single" collapsible className=" text-gray-500 text-sm border-t border-[#D7D7D7] p-4">
+        <Accordion.Item
+          value="profile"
+          className=""
+        >
+          {/* HEADER */}
+          <Accordion.Header>
+            <Accordion.Trigger
+              className="
+              flex w-full items-center justify-between px-2 py-1
+              text-left
+            "
+            >
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-zinc-900">
+                  {`${nome} ${sobrenome}`}
+                </span>
+                <span className="text-xs text-zinc-500">
+                  {role === "client" ? "Cliente" : "Admin"}
+                </span>
+              </div>
+
+              {/* Seta */}
+              <ChevronDown />
+            </Accordion.Trigger>
+          </Accordion.Header>
+
+          {/* CONTENT */}
+          <Accordion.Content
+            className="
+            overflow-hidden
+            data-[state=open]:animate-accordion-down
+            data-[state=closed]:animate-accordion-up
+          "
+          >
+            <div className="px-4 py-3">
+              <button
+                className="
+                w-full rounded-md text-center py-2 text-sm
+                text-red-600 hover:bg-red-200
+              "
+                onClick={() => handlerLogout()}
+              >
+                Logout
+              </button>
+            </div>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
     </aside>
+
+
   );
 }

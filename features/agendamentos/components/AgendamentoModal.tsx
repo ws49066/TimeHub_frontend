@@ -5,10 +5,11 @@ import { agendamentoService } from "../services/agendamento.service";
 import { AgendamentoFormData, agendamentoSchema } from "../schemas/agendamento.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/shared/ui/Input";
-import { Select } from "@/shared/ui/Select";
+
 import { useEffect, useMemo, useState } from "react";
-import { useRoomsStore } from "@/features/rooms/stores/room.store";
+import { useRoomsStore } from "../../rooms/stores/room.store";
+import { Input } from "../../../shared/ui/Input";
+import { Select } from "../../../shared/ui/Select";
 
 export function AgendamentoModal({ onClose }: { onClose: () => void }) {
     const { rooms, fetchRooms } = useRoomsStore()

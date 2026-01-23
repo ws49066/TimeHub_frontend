@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/shared/stores/auth.store'
-import { IPermissions } from '@/shared/auth/auth.types'
+import { useAuthStore } from '../stores/auth.store'
+import { IPermissions } from '../auth/auth.types'
 
 type Props = {
   children: React.ReactNode
@@ -21,7 +21,7 @@ export function PagePermissionGuard({ children, permission }: Props) {
     if (loadingToken) return
 
     if (!user) {
-      router.replace('/auth/client/login')
+      router.replace('/client/login')
       return
     }
 

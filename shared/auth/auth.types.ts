@@ -9,6 +9,8 @@ export type User = {
   email: string
   role: 'admin' | 'client'
   permissions: IPermissions
+  nome: string
+  sobrenome: string
 }
 
 export type LoginResponse = {

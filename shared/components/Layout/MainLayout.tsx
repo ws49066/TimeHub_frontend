@@ -10,13 +10,13 @@ type MainLayoutProps = {
 
 export default function MainLayout({ children, title, description }: MainLayoutProps) {
   return (
-    <div className="flex h-screen bg-white">
+    <div className="flex min-h-screen bg-white">
       <Menu />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header title={title} description={description}/>
 
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-6.25 overflow-auto">
           {children}
         </main>
       </div>

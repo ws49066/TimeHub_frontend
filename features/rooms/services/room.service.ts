@@ -1,5 +1,6 @@
 
-import { api } from '@/shared/api/axios'
+
+import { api } from '../../../shared/api/axios'
 import { IRoomList } from '../types/room.types'
 
 export const roomService = {

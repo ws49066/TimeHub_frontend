@@ -12,7 +12,7 @@ export default function Page() {
   useEffect(() => {
 
     if (!user) {
-      router.replace('/auth/client/login')
+      router.replace('client/login')
       return
     }
 

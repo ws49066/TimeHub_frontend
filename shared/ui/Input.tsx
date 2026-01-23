@@ -5,26 +5,28 @@ type InputProps = {
   stylesOverride?: string
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-export function Input({ label, error, required, stylesOverride, ...props }: InputProps) {
+export function Input({ label, error, required, ...props }: InputProps) {
   return (
-    <div className="space-y-2">
-      <div>
-        <label className="text-xs font-medium">{label} {required && <span className="font-normal text-xs">(Obrigatorio)</span>}</label>
-      </div>
+    <div className="flex flex-col gap-2.5">
+
+      <label className="text-[14px] font-medium">{label} {required && <span className="font-normal text-xs">(Obrigatorio)</span>}</label>
 
       <input
         {...props}
         className={`
             w-full
-            px-3
-            h-10
+            py-5
+            px-3.25
+            h-11
             border
-            rounded
+            rounded-[5px]
+            border-[#d7d7d7]
             font-normal
-            ${ stylesOverride ?? 'text-sm' }
-            leading-tight
-            md:h-11
-          ${error ? 'border-red-500' : 'border-gray-300'}
+            text-[14px]
+            disabled:cursor-not-allowed 
+            disabled:bg-[#d5d5d5]
+          ${error ? 'border-red-500' : ' border-[#d7d7d7]'}
+
         `}
       />
 

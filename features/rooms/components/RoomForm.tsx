@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RoomFormData, roomSchema } from '../schemas/room.schema'
 import { useRoomsStore } from '../stores/room.store'
-import { Input } from '@/shared/ui/Input'
 import { IRoomList } from '../types/room.types'
+import { Input } from '../../../shared/ui/Input'
 
 type RoomFormProps = {
   onCancel: () => void
