@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useState } from "react";
-import Menu from "../Menu/Menu";
-import Header from "../Header";
+import { Menu } from "../Menu/Menu";
+import { Header } from "../Header";
 import { MobileSidebar } from "../Menu/MobileMenu";
 import { MenuIcon } from "lucide-react";
 
@@ -11,7 +11,7 @@ type MainLayoutProps = {
   description: string;
 };
 
-export default function MainLayout({ children, title, description }: MainLayoutProps) {
+export function MainLayout({ children, title, description }: MainLayoutProps) {
   const [open, setOpen] = useState(false)
   return (
     <div className="flex min-h-screen w-full bg-white overflow-x-hidden">

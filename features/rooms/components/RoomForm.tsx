@@ -10,11 +10,6 @@ type RoomFormProps = {
   onCancel: () => void
 }
 
-const hourBlockOptions = [
-  { value: "30", label: "30 minutos" },
-  { value: "60", label: "60 minutos" },
-]
-
 export function RoomForm({ onCancel }: RoomFormProps) {
   const { createRoom, fetchRooms } = useRoomsStore()
 
@@ -54,7 +49,7 @@ export function RoomForm({ onCancel }: RoomFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col h-full"
     >
-      {/* BODY */}
+
       <div className="flex-1 space-y-4 overflow-y-auto">
         <Input
           label="Nome da sala"

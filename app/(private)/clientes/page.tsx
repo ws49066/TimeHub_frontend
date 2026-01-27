@@ -1,36 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import MainLayout from "../../../shared/components/Layout/MainLayout";
-import { api } from "../../../shared/api/axios";
-import TableClients from "../../../shared/components/TableClients";
-import { useAuthStore } from "../../../shared/stores/auth.store";
-import { useRouter } from 'next/navigation'
-import { useClientStore } from "./cliente.store";
-
-
-export interface IClientProps {
-    id: number
-    create_appointment: string
-    view_logs: string
-    access_system: string
-    client: {
-        nome: string,
-        sobrenome: string,
-        endereco: string,
-        numero: string,
-        cidade: string,
-        estado: string,
-        bairro: string,
-        createdAt: string
-    }
-}
+import {MainLayout} from "../../../shared/components/Layout/MainLayout";
+import {TableClients} from "../../../shared/components/TableClients";
+import { useClientStore } from "../../../features/clientes";
 
 
 
 export default function Clientes() {
     const {clients, getClients, loading} = useClientStore()
-    const [error, setError] = useState<string | null>(null)
+    const [error] = useState<string | null>(null)
 
 
     useEffect(() => {
@@ -57,9 +36,6 @@ export default function Clientes() {
         >
             {error && <p className="text-red-500">{error}</p>}
 
-            {!loading && tableData.length === 0 && (
-                <p>Nenhum cliente encontrado.</p>
-            )}
 
             {<TableClients data={tableData} />}
             {loading && <p>Carregando...</p>}

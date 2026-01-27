@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { ClientRegisterFormData, clientRegisterSchema } from '../../../../shared/client/client.schema'
+import { ClientRegisterFormData, clientRegisterSchema } from '../../../../features/clientes'
 import { api } from '../../../../shared/api/axios'
 import { Input } from '../../../../shared/ui/Input'
 import { fetchAddressByCep } from '../../../../shared/services/cep.service'
@@ -13,7 +13,6 @@ import { fetchAddressByCep } from '../../../../shared/services/cep.service'
 
 
 export default function ClientRegister() {
-    // const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
 

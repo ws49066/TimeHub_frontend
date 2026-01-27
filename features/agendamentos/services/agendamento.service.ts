@@ -1,11 +1,12 @@
 
 import { api } from '../../../shared/api/axios'
-import { IAgendamento, IUpdateState } from '../types/Agendamento.types'
+import { ICreateAgendamento, IUpdateState } from '../types/agendamento.types'
+
 
 
 export const agendamentoService = {
 
-  createAgendamento: async (payload: IAgendamento) => {
+  createAgendamento: async (payload: ICreateAgendamento) => {
     return await api.post('/scheduling', payload)
   },
 

@@ -37,36 +37,34 @@ export default function ClientLogin() {
   })
 
   return (
-    // <div className="w-full max-w-md mx-auto px-2 sm:px-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 sm:gap-6.25">
+      <h1 className="text-center font-semibold text-[28px]">Entre na sua conta</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 sm:gap-6.25">
-        <h1 className="text-center font-semibold text-[28px]">Entre na sua conta</h1>
+      <div className="bg-white rounded-[5px] border p-4 sm:p-6 md:p-7.5gap-2.5 flex flex-col border-[#d7d7d7]">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3.75">
+            <Input
+              label="E-mail"
+              placeholder="Insira seu e-mail"
+              type="email"
+              required
+              {...register('email')}
+              error={errors.email?.message}
+            />
 
-        <div className="bg-white rounded-[5px] border p-4 sm:p-6 md:p-7.5gap-2.5 flex flex-col border-[#d7d7d7]">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-3.75">
-              <Input
-                label="E-mail"
-                placeholder="Insira seu e-mail"
-                type="email"
-                required
-                {...register('email')}
-                error={errors.email?.message}
-              />
+            <Input
+              label="Senha de acesso"
+              type="password"
+              placeholder="Insira sua senha"
+              required
+              {...register('password')}
+              error={errors.password?.message}
+            />
+          </div>
 
-              <Input
-                label="Senha de acesso"
-                type="password"
-                placeholder="Insira sua senha"
-                required
-                {...register('password')}
-                error={errors.password?.message}
-              />
-            </div>
-
-            <button
-              disabled={loading || !isValid}
-              className="
+          <button
+            disabled={loading || !isValid}
+            className="
                             w-full 
                             bg-black 
                             text-white 
@@ -79,24 +77,22 @@ export default function ClientLogin() {
                             disabled:opacity-50 
                             disabled:cursor-not-allowed 
                             disabled:bg-[#D5D5D5]"
-            >
-              {loading ? 'Entrando...' : 'Acessar Conta'}
-            </button>
+          >
+            {loading ? 'Entrando...' : 'Acessar Conta'}
+          </button>
 
-            <div className="flex relative items-center gap-2 lg:gap-25 ">
-              <span className="text-sm">Ainda não tem uma cadastro?</span>
-              <a href="/client/register" className="left-67.5 text-sm font-bold underline">Cadastre-se</a>
-            </div>
+          <div className="flex relative items-center gap-2 lg:gap-25 ">
+            <span className="text-sm">Ainda não tem uma cadastro?</span>
+            <a href="/client/register" className="left-67.5 text-sm font-bold underline">Cadastre-se</a>
           </div>
         </div>
+      </div>
 
 
-        {error && (
-          <p className="text-red-500 text-sm text-center">{error}</p>
-        )}
-      </form>
-    // </div>
-
+      {error && (
+        <p className="text-red-500 text-sm text-center">{error}</p>
+      )}
+    </form>
 
   )
 }

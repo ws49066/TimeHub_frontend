@@ -1,11 +1,11 @@
 "use client"
 import { useEffect, useState } from "react";
-import MainLayout from "../../../shared/components/Layout/MainLayout";
+import {MainLayout} from "../../../shared/components/Layout/MainLayout";
 import { api } from "../../../shared/api/axios";
 import { PagePermissionGuard } from "../../../shared/guards/PagePermission";
-import TableLogs from "../../../shared/components/TableLogs";
+import {TableLogs} from "../../../shared/components/TableLogs";
 import { useAuthStore } from "../../../shared/stores/auth.store";
-import { useLogsStore } from "./logs.store";
+import { useLogsStore } from "../../../features/logs";
 
 
 export default function Logs() {
@@ -49,8 +49,6 @@ export default function Logs() {
             >
                 {loading && <p>Carregando...</p>}
                 {error && <p className="text-red-500">{error}</p>}
-
-                {!loading && logs.length === 0 && <p>Nenhum log encontrado.</p>}
 
                 {<TableLogs />}
             </MainLayout>

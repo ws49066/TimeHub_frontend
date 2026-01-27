@@ -22,7 +22,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     loadingToken: true,
     error: null,
 
-    login: async ({ email, password }, type_user, role) => {
+    login: async ({ email, password }, type_user = 'admin', role) => {
         try {
             set({ loading: true, error: null })
 

@@ -3,7 +3,7 @@ type HeaderProps = {
   description: string;
 };
 
-export default function Header({ title, description }: HeaderProps) {
+export function Header({ title, description }: HeaderProps) {
   return (
     <header className="bg-white p-4 border-b border-[#D7D7D7]">
       <div>

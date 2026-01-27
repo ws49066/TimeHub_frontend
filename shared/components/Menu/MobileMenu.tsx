@@ -15,10 +15,10 @@ export function MobileSidebar({ open, onClose }: MobileSidebarProps) {
     return (
         <Dialog.Root open={open} onOpenChange={onClose}>
             <Dialog.Portal>
-                {/* Overlay */}
+
                 <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40" />
 
-                {/* Drawer */}
+
                 <Dialog.Content
                     className="
             fixed left-0 top-0 h-full w-64
@@ -28,14 +28,14 @@ export function MobileSidebar({ open, onClose }: MobileSidebarProps) {
             shadow-lg
           "
                 >
-                    {/* Acessibilidade */}
+
                     <VisuallyHidden>
                         <Dialog.Title>Menu de navegação</Dialog.Title>
                         <Dialog.Description>
                             Menu lateral com links de navegação
                         </Dialog.Description>
                     </VisuallyHidden>
-                    {/* Header mobile */}
+
                     <div className="flex items-center justify-between p-4 border-b border-[#D7D7D7]">
                         <span className="font-semibold">Menu</span>
                         <button onClick={onClose}>
@@ -43,7 +43,6 @@ export function MobileSidebar({ open, onClose }: MobileSidebarProps) {
                         </button>
                     </div>
 
-                    {/* Menu reutilizado */}
                     <div className="flex-1 overflow-y-auto">
                         <Menu />
                     </div>

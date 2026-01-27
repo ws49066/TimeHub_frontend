@@ -23,7 +23,6 @@ export function TimeInput({
 }: TimeInputProps) {
   return (
     <div className="flex flex-col gap-2.5">
-      {/* Label externa (IGUAL Input) */}
       <label className="text-[14px] font-medium">
         {label}{' '}
         {required && (
@@ -50,7 +49,7 @@ export function TimeInput({
                   error: !!error,
                   helperText: error,
                   placeholder: '00:00',
-                  InputLabelProps: { shrink: false }, // 🔥 impede label flutuante
+                  InputLabelProps: { shrink: false },
                   sx: {
                     '& .MuiOutlinedInput-root': {
                       height: '36px',

@@ -1,10 +1,7 @@
-import { api } from "../../../shared/api/axios"
-import { IPayload } from "../../../shared/components/TableClients"
-
-
+import { api } from '../../../shared/api/axios'
+import { IPayload } from '../types/cliente.types'
 
 export const clientsService = {
-
   fetchClientsPermissions: async() => {
     return await api.get("/administrator/clients")
   },
@@ -12,5 +9,4 @@ export const clientsService = {
   updatedPermission: async(payload: IPayload) => {
     return await api.put("/administrator/editClientPermissions", payload)
   }
-
 }

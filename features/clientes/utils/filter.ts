@@ -1,8 +1,11 @@
-import { IClientProps } from "./page"
+import { IClientProps } from '../types/cliente.types'
 
+type FilterParams = {
+  search: string
+  date?: string | null
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function filterClients(clients: IClientProps[], filters: any) {
+export function filterClients(clients: IClientProps[], filters: FilterParams) {
   return clients.filter((client) => {
     const searchMatch =
       client.client?.nome.toLowerCase().includes(filters.search.toLowerCase()) 

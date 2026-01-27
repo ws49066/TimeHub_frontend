@@ -9,7 +9,6 @@ type ModalProps = {
 }
 
 export function Modal({ open, onClose, children }: ModalProps) {
-  // 🔒 Trava scroll do body
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'

@@ -5,16 +5,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
-import { ClientRegisterFormData, clientRegisterSchema } from '../../../shared/client/client.schema'
+import { ClientRegisterFormData, clientRegisterSchema } from '../../../features/clientes'
 import { api } from '../../../shared/api/axios'
 import { PagePermissionGuard } from '../../../shared/guards/PagePermission'
-import MainLayout from '../../../shared/components/Layout/MainLayout'
+import {MainLayout} from '../../../shared/components/Layout/MainLayout'
 import { Input } from '../../../shared/ui/Input'
 import { fetchAddressByCep } from '../../../shared/services/cep.service'
 
 
 export default function ClientRegister() {
-    // const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const {
@@ -140,7 +139,7 @@ flex justify-center px-2 sm:px-4
                                         {...register('endereco')}
                                     />
 
-                                    {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-5"> */}
+                           
                                         <Input
                                             label="Número"
                                             type="number"
@@ -151,9 +150,7 @@ flex justify-center px-2 sm:px-4
                                             label="Complemento"
                                             {...register('complemento')}
                                         />
-                                    {/* </div> */}
-
-                                    {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-5"> */}
+                                 
                                         <Input
                                             label="Bairro"
                                             disabled
@@ -165,8 +162,6 @@ flex justify-center px-2 sm:px-4
                                             disabled
                                             {...register('cidade')}
                                         />
-                                    {/* </div> */}
-
 
                                     <Input
                                         label="Estado"

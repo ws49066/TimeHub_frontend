@@ -1,7 +1,5 @@
 import { useRef } from "react";
-import { filterLogs } from "../../app/(private)/logs/filter"
-import { useLogsStore } from "../../app/(private)/logs/logs.store"
-import { paginate } from "../../app/(private)/logs/logs.utils"
+import { filterLogs, useLogsStore, paginate, clientProps } from "../../features/logs"
 import { useAuthStore } from "../stores/auth.store"
 import { ChevronRight, Search } from 'lucide-react';
 import { Calendar } from "lucide-react";
@@ -9,27 +7,7 @@ import { ChevronLeft } from 'lucide-react';
 import { AgendaIcon } from "./icons/AgendaIcon";
 import { AccountIcon } from "./icons/AccountIcon";
 
-
-<Search />
-
-
-
-
-export type clientProps = {
-  id: string | number,
-  nome: string,
-  sobrenome: string
-}
-
-
-export interface ILog {
-  id: number
-  clientId: number
-  action: string
-  module: string
-  createdAt: string
-  client?: clientProps
-}
+export type { clientProps, ILog } from "../../features/logs"
 
 export type TableProps = {
   data: {
@@ -41,7 +19,7 @@ export type TableProps = {
   }[];
 };
 
-export default function TableLogs() {
+export function TableLogs() {
   const { user } = useAuthStore()
   const { logs, filters, page, pageSize, setPage } = useLogsStore()
 

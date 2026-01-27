@@ -1,34 +1,31 @@
 import { useRef, useState } from "react";
-import { IUpdateState } from "../../features/agendamentos/types/Agendamento.types";
-import { agendamentoService } from "../../features/agendamentos/services/agendamento.service";
+import {
+  IUpdateState,
+  agendamentoService,
+  useAgendamentosStore,
+  paginate,
+  filterAgendamento
+} from "../../features/agendamentos";
 import { RoomsModal } from "../../features/rooms/components/RoomsModal";
 import { AgendamentoModal } from "../../features/agendamentos/components/AgendamentoModal";
 import { Calendar, Check, ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { useAgendamentosStore } from "../../app/(private)/agendamentos/agendamento.store";
-import { paginate } from "../../app/(private)/agendamentos/agandamento.utils";
-import { filterAgendamento } from "../../app/(private)/agendamentos/filter";
 import { useAuthStore } from "../stores/auth.store";
+import { AgendamentoFilters } from "@/features/agendamentos/types/agendamento.types";
 
 
-interface dataProp {
-  id: number;
-  data_hora: string;
-  cliente_nome: string;
-  sala: string,
-  status: string
-}
 
 type TableProps = {
-  data: dataProp[];
+  data: AgendamentoFilters[];
 }
 
-export default function TableSchedule({ data }: TableProps) {
+export function TableSchedule({ data }: TableProps) {
   const [open, setOpen] = useState(false);
   const [openAgendamento, setOpenAgendamento] = useState(false);
-  const { agendamentos, filters, page, pageSize, setPage, fetchAgendamento } = useAgendamentosStore()
+  const { filters, page, pageSize, setPage, fetchAgendamento } = useAgendamentosStore()
 
-  const filteredLogs = filterAgendamento(agendamentos, filters)
-  const totalPages = Math.ceil(filteredLogs.length / pageSize)
+  const filteredAgendamento = filterAgendamento(data, filters)
+  const paginatedAgendamento = paginate(filteredAgendamento, page, pageSize)
+  const totalPages = Math.ceil(filteredAgendamento.length / pageSize)
   const inputRef = useRef(null);
   const { user } = useAuthStore()
 
@@ -46,7 +43,7 @@ export default function TableSchedule({ data }: TableProps) {
 
 
 
-  const ChangeStatus = async (data: dataProp, newStatus: "canceled" | "confirmed") => {
+  const ChangeStatus = async (data: AgendamentoFilters, newStatus: "canceled" | "confirmed") => {
     const payload: IUpdateState = {
       id: String(data.id),
       status: newStatus
@@ -135,7 +132,7 @@ export default function TableSchedule({ data }: TableProps) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {data.map((item) => (
+              {paginatedAgendamento.map((item) => (
                 <tr key={item.id}
                   className={`${item.status === "confirmed"
                     ? "bg-[#F2FFFD]"
@@ -168,10 +165,10 @@ export default function TableSchedule({ data }: TableProps) {
                     </span>
                   </td>
                   <td className="px-6 py-4 flex gap-2">
-                    {item.status === "canceled" ? null : ( <button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-red-700" onClick={() => ChangeStatus(item, "canceled")} > <X /> </button>)}
-                   
-                    {user?.role === 'admin' && item.status === "in_review" && (  <button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-green-700" onClick={() => ChangeStatus(item, "confirmed")}>    <Check /></button>)}
-                  
+                    {item.status === "canceled" ? null : (<button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-red-700" onClick={() => ChangeStatus(item, "canceled")} > <X /> </button>)}
+
+                    {user?.role === 'admin' && item.status === "in_review" && (<button className="w-7.5 h-7.5 rounded-[60px] bg-black text-white flex items-center justify-center hover:bg-green-700" onClick={() => ChangeStatus(item, "confirmed")}>    <Check /></button>)}
+
                   </td>
                 </tr>
               ))}
@@ -180,7 +177,7 @@ export default function TableSchedule({ data }: TableProps) {
         </div>
         {/* MOBILE */}
         <div className="md:hidden space-y-4">
-          {data.map((item) => (
+          {paginatedAgendamento.map((item) => (
             <div
               key={item.id}
               className={`

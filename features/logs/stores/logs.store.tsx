@@ -1,44 +1,35 @@
 import { create } from 'zustand'
-import { IClientProps } from './page'
-import { clientsService } from './client.service'
+import { ILog } from '../types/log.types'
 
 type Filters = {
     search: string
+    modulo: string
     date: string | null
 }
 
-type ClientsStore = {
-    clients: IClientProps[]
+type LogsStore = {
+    logs: ILog[]
     filters: Filters
     page: number
     pageSize: number
-    loading: boolean
 
-    getClients: () => Promise<void>
+    setLogs: (logs: ILog[]) => void
     setFilters: (filters: Partial<Filters>) => void
     setPage: (page: number) => void
-
 }
 
-export const useClientStore = create<ClientsStore>((set) => ({
-    clients: [],
+export const useLogsStore = create<LogsStore>((set) => ({
+    logs: [],
     page: 1,
     pageSize: 10,
-    loading: false,
 
     filters: {
         search: '',
+        modulo: '',
         date: null,
     },
 
-
-    getClients: async () => {
-        set({ loading: true})
-        const data = await clientsService.fetchClientsPermissions()
-        set({ clients: data.data.data , loading: false})
-    },
-
-
+    setLogs: (logs) => set({ logs }),
     setFilters: (filters) =>
         set((state) => ({
             filters: { ...state.filters, ...filters },

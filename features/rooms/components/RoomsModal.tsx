@@ -22,7 +22,7 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
 
     useEffect(() => {
         setEditableRooms(rooms)
-        setRoomsValidity(rooms.map(() => true)) // 👈 MUITO IMPORTANTE
+        setRoomsValidity(rooms.map(() => true)) 
     }, [rooms])
 
 

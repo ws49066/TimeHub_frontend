@@ -1,8 +1,12 @@
-import { ILog } from "../../../shared/components/TableLogs"
+import { ILog } from '../types/log.types'
 
+type FilterParams = {
+  search: string
+  module?: string
+  date?: string | null
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function filterLogs(logs: ILog[], filters: any) {
+export function filterLogs(logs: ILog[], filters: FilterParams) {
   return logs.filter((log) => {
     const searchMatch =
       log.client?.nome.toLowerCase().includes(filters.search.toLowerCase()) ||

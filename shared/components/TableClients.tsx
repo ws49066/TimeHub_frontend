@@ -1,10 +1,8 @@
 import { useRef } from "react"
-import { clientsService } from "../../app/(private)/clientes/client.service"
-import { useClientStore } from "../../app/(private)/clientes/cliente.store"
-import { filterClients } from "../../app/(private)/clientes/filter"
+import { clientsService, useClientStore, filterClients, IPayload } from "../../features/clientes"
 import { Calendar, ChevronLeft, ChevronRight, Search } from "lucide-react"
 import * as Switch from "@radix-ui/react-switch";
-
+export type { IPayload } from "../../features/clientes"
 
 interface dataProp {
   id: number
@@ -14,15 +12,6 @@ interface dataProp {
   create_appointment: string
   view_logs: string
   access_system: string
-}
-
-export interface IPayload {
-
-  clientId: number | string,
-  access_system?: boolean,
-  view_logs?: boolean,
-  create_appointment?: boolean
-
 }
 
 type TableProps = {
@@ -39,7 +28,7 @@ type TableProps = {
 
 
 
-export default function TableClients({ data }: TableProps) {
+export function TableClients({ data }: TableProps) {
   const { clients, getClients, filters, page, pageSize, setPage } = useClientStore()
 
   const filteredLogs = filterClients(clients, filters)

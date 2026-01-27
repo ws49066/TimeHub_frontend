@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TimeHub Frontend
 
-## Getting Started
+Sistema de gerenciamento de agendamentos desenvolvido com Next.js 16, TypeScript e React.
 
-First, run the development server:
+## 🚀 Tecnologias
+
+- **Next.js 16** - Framework React com App Router
+- **TypeScript** - Tipagem estática
+- **React 19** - Biblioteca UI
+- **Zustand** - Gerenciamento de estado
+- **React Hook Form** - Formulários
+- **Zod** - Validação de schemas
+- **Axios** - Cliente HTTP
+- **Material-UI** - Componentes UI
+- **Tailwind CSS** - Estilização
+- **PWA** - Progressive Web App
+
+## 📁 Estrutura do Projeto
+
+O projeto segue uma arquitetura modular e escalável, organizada por features:
+
+```
+timehub-frontend/
+├── app/                          # Next.js App Router
+│   ├── (private)/               # Rotas privadas (requerem autenticação)
+│   │   ├── account/            # Página de conta do usuário
+│   │   ├── agendamentos/       # Página de agendamentos
+│   │   ├── clientes/           # Página de clientes
+│   │   └── logs/               # Página de logs
+│   ├── (public)/               # Rotas públicas
+│   │   ├── admin/             # Área administrativa
+│   │   └── client/            # Área do cliente
+│   ├── layout.tsx              # Layout raiz
+│   └── page.tsx                # Página inicial
+│
+├── features/                    # Features do domínio (Feature-based architecture)
+│   ├── agendamentos/           # Feature: Agendamentos
+│   │   ├── components/        # Componentes específicos da feature
+│   │   ├── services/          # Serviços de API
+│   │   ├── stores/            # Estado global (Zustand)
+│   │   ├── types/             # Tipos TypeScript
+│   │   ├── schemas/           # Schemas de validação (Zod)
+│   │   ├── utils/             # Funções utilitárias
+│   │   └── index.ts           # Barrel exports
+│   ├── clientes/              # Feature: Clientes
+│   ├── logs/                  # Feature: Logs
+│   └── rooms/                 # Feature: Salas
+│
+├── shared/                      # Código compartilhado
+│   ├── api/                   # Configuração de API (Axios)
+│   ├── auth/                  # Autenticação e autorização
+│   ├── components/            # Componentes reutilizáveis
+│   │   ├── Layout/           # Layouts
+│   │   ├── Menu/            # Menu de navegação
+│   │   └── icons/           # Ícones customizados
+│   ├── guards/               # Guards de proteção de rotas
+│   ├── hooks/                # Custom hooks
+│   ├── services/             # Serviços compartilhados
+│   ├── stores/               # Stores globais (ex: auth)
+│   ├── types/                # Tipos compartilhados
+│   ├── ui/                   # Componentes UI base
+│   ├── utils/                # Utilitários compartilhados
+│   ├── constants/            # Constantes da aplicação
+│   └── index.ts              # Barrel exports
+│
+├── public/                     # Arquivos estáticos
+│   ├── icons/                # Ícones
+│   └── manifest.json         # PWA manifest
+│
+└── [config files]            # Configurações (tsconfig, next.config, etc.)
+```
+
+## 🏗️ Arquitetura
+
+### Feature-Based Architecture
+
+O projeto utiliza uma arquitetura baseada em features, onde cada feature é auto-contida e inclui:
+
+- **Components**: Componentes React específicos da feature
+- **Services**: Lógica de comunicação com API
+- **Stores**: Estado gerenciado com Zustand
+- **Types**: Definições TypeScript
+- **Schemas**: Validações com Zod
+- **Utils**: Funções auxiliares
+- **index.ts**: Barrel exports para facilitar imports
+
+### Shared Module
+
+O módulo `shared` contém código reutilizável em toda a aplicação:
+
+- **API**: Configuração centralizada do Axios
+- **Auth**: Lógica de autenticação e tokens
+- **Components**: Componentes UI reutilizáveis
+- **Guards**: Proteção de rotas baseada em permissões
+- **Services**: Serviços compartilhados (ex: CEP)
+- **Stores**: Estado global (autenticação)
+- **UI**: Componentes base (Input, Select, Modal, etc.)
+
+## 📦 Como Usar
+
+### Instalação
+
+```bash
+npm install
+```
+
+### Desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+### Produção
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Autenticação
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+O sistema possui dois tipos de usuários:
 
-## Deploy on Vercel
+- **Admin**: Acesso completo ao sistema
+- **Client**: Acesso limitado baseado em permissões
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+As permissões incluem:
+- `access_system`: Acesso ao sistema
+- `view_logs`: Visualização de logs
+- `create_appointment`: Criação de agendamentos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Convenções
+
+### Imports
+
+Use barrel exports quando disponível:
+
+```typescript
+// ✅ Bom
+import { useAgendamentosStore, IAgendamento } from '@/features/agendamentos'
+import { useAuthStore } from '@/shared/stores/auth.store'
+
+// ❌ Evitar
+import { useAgendamentosStore } from '@/features/agendamentos/stores/agendamento.store'
+```
+
+### Nomenclatura
+
+- **Componentes**: PascalCase (ex: `AgendamentoModal.tsx`)
+- **Hooks**: camelCase com prefixo `use` (ex: `useAgendamentosStore`)
+- **Utils**: camelCase (ex: `filterAgendamento`)
+- **Types**: PascalCase com prefixo `I` para interfaces (ex: `IAgendamento`)
+- **Stores**: camelCase com sufixo `Store` (ex: `agendamento.store.ts`)
+
+## 🎯 Próximos Passos
+
+- [ ] Adicionar testes unitários
+- [ ] Implementar testes E2E
+- [ ] Adicionar documentação de API
+- [ ] Melhorar tratamento de erros
+- [ ] Adicionar loading states globais
+- [ ] Implementar cache de requisições
+
+## 📄 Licença
+
+Este projeto é privado.

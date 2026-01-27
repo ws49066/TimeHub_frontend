@@ -103,7 +103,7 @@ export default function Menu() {
           value="profile"
           className=""
         >
-          {/* HEADER */}
+
           <Accordion.Header>
             <Accordion.Trigger
               className="
@@ -120,12 +120,12 @@ export default function Menu() {
                 </span>
               </div>
 
-              {/* Seta */}
+
               <ChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
 
-          {/* CONTENT */}
+
           <Accordion.Content
             className="
             overflow-hidden
@@ -161,3 +161,4 @@ export default function Menu() {
 
   );
 }
+export { Menu };
