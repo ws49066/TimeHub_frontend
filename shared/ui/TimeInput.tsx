@@ -26,7 +26,7 @@ export function TimeInput({
       <label className="text-[14px] font-medium">
         {label}{' '}
         {required && (
-          <span className="font-normal text-xs">(Obrigatório)</span>
+          <span className="font-normal text-xs">(Required)</span>
         )}
       </label>
 

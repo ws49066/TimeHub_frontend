@@ -44,33 +44,33 @@ export function TableLogs() {
 
   return (
     <div className="bg-white flex flex-col gap-6.25 overflow-x-hidden">
-      <div className="flex flex-col gap-6.25  border border-[#D7D7D7] rounded-[5px] p-4">
+      <div className="flex flex-col gap-6.25 border border-[#D7D7D7] rounded-[5px] p-3 sm:p-4 md:p-6">
 
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="relative flex w-full md:w-110 h-10 border border-[#D7D7D7] items-center px-3.25 gap-3.25">
-            <Search width={20} height={20} />
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <div className="relative flex w-full sm:w-auto flex-1 h-10 border border-[#D7D7D7] items-center px-3 gap-2 rounded-[5px]">
+            <Search width={18} height={18} className="flex-shrink-0" />
             <input
               type="text"
-              className="h-5 w-full focus:outline-none"
-              placeholder="Filtrar por cliente, tipo ou módulo"
+              className="h-5 w-full focus:outline-none text-sm"
+              placeholder="Filter by client, type or module"
               onChange={(e) =>
                 useLogsStore.getState().setFilters({ search: e.target.value })
               }
             />
           </div>
 
-          <div className="relative w-full md:w-44.25 h-10 border border-[#d7d7d7] rounded-[5px]">
+          <div className="relative w-full sm:w-44 h-10 border border-[#d7d7d7] rounded-[5px]">
             <input
               ref={inputRef}
               type="date"
-              className="w-full h-full rounded-[5px] px-3 pr-10 focus:outline-none
+              className="w-full h-full rounded-[5px] px-3 pr-10 focus:outline-none text-sm
         [&::-webkit-calendar-picker-indicator]:opacity-0"
               onChange={(e) =>
                 useLogsStore.getState().setFilters({ date: e.target.value })
               }
             />
             <Calendar
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer flex-shrink-0"
               onClick={() => inputRef.current?.showPicker()}
             />
           </div>
@@ -83,11 +83,11 @@ export function TableLogs() {
             <thead >
               <tr className="">
                 {user?.role === "admin" ? (
-                  <th className="px-6 py-3 text-left text-xs font-medium text-black">Cliente</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-black">Client</th>
                 ) : null}
-                <th className="px-6 py-3 text-left text-xs font-medium text-black ">Tipo de atividade</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black ">Módulo</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black ">Data e horario</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black ">Activity Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black ">Module</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black ">Date and Time</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -113,7 +113,7 @@ export function TableLogs() {
                   </td>
                   <td className="px-6 py-4">
                     <span className="px-3 py-2 rounded-full bg-gray-100 text-xs">
-                      {new Date(item.createdAt).toLocaleString("pt-BR").replace(",", " ás")}
+                      {new Date(item.createdAt).toLocaleString("en-US")}
                     </span>
                   </td>
                 </tr>
@@ -148,7 +148,7 @@ export function TableLogs() {
               </div>
 
               <div className="text-xs text-gray-500">
-                {new Date(item.createdAt).toLocaleString("pt-BR").replace(",", " às")}
+                {new Date(item.createdAt).toLocaleString("en-US")}
               </div>
             </div>
           ))}

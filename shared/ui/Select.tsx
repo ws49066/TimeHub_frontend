@@ -22,7 +22,7 @@ export function Select({
       <label className="text-xs font-medium">
         {label}{' '}
         {required && (
-          <span className="font-normal text-xs">(Obrigatório)</span>
+          <span className="font-normal text-xs">(Required)</span>
         )}
       </label>
 

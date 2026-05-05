@@ -18,6 +18,6 @@ export async function fetchAddressByCep(cep: string, setValue: any) {
         setValue('cidade', data.localidade)
         setValue('estado', data.uf)
     } catch (error) {
-        console.error('Erro ao buscar CEP', error)
+        console.error('Error fetching ZIP code', error)
     }
 }

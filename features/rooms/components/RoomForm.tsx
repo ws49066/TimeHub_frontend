@@ -52,13 +52,13 @@ export function RoomForm({ onCancel }: RoomFormProps) {
 
       <div className="flex-1 space-y-4 overflow-y-auto">
         <Input
-          label="Nome da sala"
+          label="Room Name"
           {...register("room")}
           error={errors.room?.message}
         />
 
         <Input
-          label="Horário"
+          label="Time"
           placeholder="08:00 - 18:00"
           {...register("timeRange")}
           error={errors.timeRange?.message}
@@ -66,10 +66,10 @@ export function RoomForm({ onCancel }: RoomFormProps) {
 
 
         <Select
-          label="Intervalo"
+          label="Interval"
           options={[
-            { value: "30", label: "30 minutos" },
-            { value: "60", label: "60 minutos" },
+            { value: "30", label: "30 minutes" },
+            { value: "60", label: "60 minutes" },
           ]}
           error={errors.hourBlock?.message}
           {...register("hourBlock")}
@@ -92,7 +92,7 @@ export function RoomForm({ onCancel }: RoomFormProps) {
             disabled:cursor-not-allowed
           "
         >
-          Salvar
+          Save
         </button>
 
         <button
@@ -108,7 +108,7 @@ export function RoomForm({ onCancel }: RoomFormProps) {
             hover:bg-[#E63232]
           "
         >
-          Cancelar
+          Cancel
         </button>
       </div>
     </form>

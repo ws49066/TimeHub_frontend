@@ -45,7 +45,7 @@ export default function AdminLogin() {
                 <Logo width={57.7} height={57.7} />
             </div>
 
-            <h1 className="text-center font-semibold text-[28px] py-1">Login Admin</h1>
+            <h1 className="text-center font-semibold text-[28px] py-1">Admin Login</h1>
 
 
             <div className="bg-white rounded-[5px] p-7.5 gap-2.5 border border-[#D7D7D7]">
@@ -53,18 +53,18 @@ export default function AdminLogin() {
                     <div className="flex flex-col gap-3.75">
 
                         <Input
-                            label="E-mail"
+                            label="Email"
                             type="email"
-                            placeholder="Insira seu e-mail"
+                            placeholder="Enter your email"
                             required
                             {...register('email')}
                             error={errors.email?.message}
                         />
 
                         <Input
-                            label="Senha de acesso"
+                            label="Password"
                             type="password"
-                            placeholder="Insira sua senha"
+                            placeholder="Enter your password"
                             required
                             {...register('password')}
                             error={errors.password?.message}
@@ -87,7 +87,7 @@ export default function AdminLogin() {
                             disabled:cursor-not-allowed 
                             disabled:bg-[#D5D5D5]"
                     >
-                        {loading ? 'Entrando...' : 'Acessar Conta'}
+                        {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </div>
 

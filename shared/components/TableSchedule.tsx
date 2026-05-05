@@ -57,9 +57,9 @@ export function TableSchedule({ data }: TableProps) {
       return (
         <button
           onClick={() => setOpen(true)}
-          className="w-full md:w-60 bg-black text-white rounded font-semibold  h-11 text-[16px] "
+          className="w-full sm:w-auto bg-black text-white rounded font-semibold h-11 px-6 text-sm sm:text-base hover:bg-gray-800 transition-colors"
         >
-          Ajuste de agendamento
+          Schedule Adjustment
         </button>
       )
     }
@@ -67,9 +67,9 @@ export function TableSchedule({ data }: TableProps) {
 
       <button
         onClick={() => setOpenAgendamento(true)}
-        className="w-full md:w-60 bg-black text-white rounded font-semibold  h-11 text-[16px] "
+        className="w-full sm:w-auto bg-black text-white rounded font-semibold h-11 px-6 text-sm sm:text-base hover:bg-gray-800 transition-colors"
       >
-        Novo agendamento
+        New Scheduling
       </button>
     )
 
@@ -78,41 +78,41 @@ export function TableSchedule({ data }: TableProps) {
 
 
   return (
-    <div className="bg-white flex flex-col gap-6.25 overflow-x-hidden">
-      <div className="flex flex-col gap-6.25  border border-[#D7D7D7] rounded-[5px] p-4 md:p-7">
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="relative flex w-full md:w-110 h-10 border border-[#D7D7D7] items-center px-3.25 gap-3.25">
-            <Search width={20} height={20} />
+    <div className="bg-white flex flex-col gap-4 sm:gap-6 overflow-x-hidden">
+      <div className="flex flex-col gap-4 sm:gap-6 border border-[#D7D7D7] rounded-[5px] p-3 sm:p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <div className="relative flex w-full sm:w-auto flex-1 h-10 border border-[#D7D7D7] items-center px-3 gap-2 rounded-[5px]">
+            <Search width={18} height={18} className="flex-shrink-0" />
 
             <input
               type="text"
-              className="h-5 w-full focus:outline-none"
-              placeholder="Filtrar por nome"
+              className="h-5 w-full focus:outline-none text-sm"
+              placeholder="Filter by name"
               onChange={(e) =>
                 useAgendamentosStore.getState().setFilters({ search: e.target.value })
               }
             />
           </div>
-          <div className="relative w-full md:w-44.25 h-10 border border-[#d7d7d7] rounded-[5px]">
+          <div className="relative w-full sm:w-44 h-10 border border-[#d7d7d7] rounded-[5px]">
 
             <input
               ref={inputRef}
               type="date"
-              className=" w-full h-full rounded-[5px] px-3 pr-10 focus:outline-none
+              className="w-full h-full rounded-[5px] px-3 pr-10 focus:outline-none text-sm
             [&::-webkit-calendar-picker-indicator]:opacity-0"
               onChange={(e) =>
                 useAgendamentosStore.getState().setFilters({ date: e.target.value })
               }
             />
             <Calendar
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer flex-shrink-0"
               onClick={() => inputRef.current?.showPicker()}
             />
           </div>
 
 
 
-          <div className="w-full md:w-auto md:ml-auto">
+          <div className="w-full sm:w-auto">
 
             {modalButtonByUser()}
           </div>
@@ -124,11 +124,11 @@ export function TableSchedule({ data }: TableProps) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Data agendamento</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Nome</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Sala de agendamento</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Scheduling Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Scheduling Room</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Ações</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -144,7 +144,7 @@ export function TableSchedule({ data }: TableProps) {
                   <td className="px-6 py-3 text-[14px] font-normal text-black">{item.data_hora}</td>
                   <td className="px-6 py-3 text-black font-medium text-sm">
                     {item.cliente_nome} <br />
-                    <span className=" text-xs font-normal border-[#D7D7D7]">Cliente</span>
+                    <span className=" text-xs font-normal border-[#D7D7D7]">Client</span>
                   </td>
                   <td className="px-5 py-4">
                     <span className="px-2.5 py-1.5 bg-black text-white rounded-[60px]">
@@ -161,7 +161,7 @@ export function TableSchedule({ data }: TableProps) {
                           : "bg-[#f5f5f5] border border-[#A4AAAD] text-[#676767]"
                         }`}
                     >
-                      {item.status === "confirmed" ? "Confirmado" : item.status === "canceled" ? "Cancelado" : "Em revisão"}
+                      {item.status === "confirmed" ? "Confirmed" : item.status === "canceled" ? "Canceled" : "Under Review"}
                     </span>
                   </td>
                   <td className="px-6 py-4 flex gap-2">

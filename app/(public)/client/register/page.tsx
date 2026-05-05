@@ -33,14 +33,14 @@ export default function ClientRegister() {
             router.push('/client/login')
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Erro ao cadastrar cliente')
+            setError(err.response?.data?.message || 'Error registering client')
         }
     }
 
     return (
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6.25 mb-60 -mt-20">
-            <h1 className="text-center font-semibold text-[28px] leading-12.5">Cadastre-se</h1>
+            <h1 className="text-center font-semibold text-[28px] leading-12.5">Sign up</h1>
 
             <div className="                           bg-white 
                             rounded-[5px] 
@@ -54,16 +54,16 @@ export default function ClientRegister() {
                     <div className="flex flex-col gap-3.75">
                         <div className='flex flex-col gap-4 sm:flex-row sm:gap-5'>
                             <Input
-                                label="Nome"
-                                placeholder='ex.: Jose'
+                                label="First Name"
+                                placeholder='e.g.: Jose'
                                 required
                                 {...register('nome')}
                                 error={errors.nome?.message}
                             />
 
                             <Input
-                                label="Sobrenome"
-                                placeholder='ex.: Lima'
+                                label="Last Name"
+                                placeholder='e.g.: Lima'
                                 required
                                 {...register('sobrenome')}
                                 error={errors.sobrenome?.message}
@@ -71,18 +71,18 @@ export default function ClientRegister() {
                         </div>
 
                         <Input
-                            label="E-mail"
+                            label="Email"
                             type="email"
-                            placeholder='Insira seu e-mail'
+                            placeholder='Enter your email'
                             required
                             {...register('email')}
                             error={errors.email?.message}
                         />
 
                         <Input
-                            label="Senha de acesso"
+                            label="Password"
                             type="password"
-                            placeholder='Insira sua senha'
+                            placeholder='Enter your password'
                             required
                             {...register('password')}
                             error={errors.password?.message}
@@ -91,9 +91,9 @@ export default function ClientRegister() {
                         <div className="w-full border border-[#d7d7d7]"></div>
 
                         <Input
-                            label="CEP"
+                            label="ZIP Code"
                             required
-                            placeholder='Insira seu CEP'
+                            placeholder='Enter your ZIP code'
                             {...register('cep', {
                                 onBlur: (e) =>
                                     fetchAddressByCep(e.target.value, setValue),
@@ -101,36 +101,36 @@ export default function ClientRegister() {
                             error={errors.cep?.message}
                         />
                         <Input
-                            label="Endereço"
+                            label="Address"
                             disabled
                             {...register('endereco')}
                         />
 
                         <Input
-                            label="Número"
+                            label="Number"
                             type='number'
                             {...register('numero')}
                         />
 
                         <Input
-                            label="Complemento"
+                            label="Complement"
                             {...register('complemento')}
                         />
 
                         <Input
-                            label="Bairro"
+                            label="Neighborhood"
                             disabled
                             {...register('bairro')}
                         />
 
                         <Input
-                            label="Cidade"
+                            label="City"
                             disabled
                             {...register('cidade')}
                         />
 
                         <Input
-                            label="Estado"
+                            label="State"
                             disabled
                             {...register('estado')}
                         />
@@ -153,7 +153,7 @@ export default function ClientRegister() {
                             disabled:cursor-not-allowed 
                             disabled:bg-[#D5D5D5]"
                     >
-                        Cadastrar
+                        Register
                     </button>
                 </div>
             </div>

@@ -51,7 +51,7 @@ export const useAgendamentosStore = create<AgendamentosStore>((set) => ({
             set({ agendamentos, loading: false })
             
         } catch (error) {
-            console.log("Erro ao buscar agendamentos", error)
+            console.log("Error fetching schedulings", error)
             set({ agendamentos: [], loading: false })
         }
     }

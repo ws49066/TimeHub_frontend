@@ -20,7 +20,7 @@ export default function Clientes() {
     const tableData = useMemo(() => {
         return clients?.map((item) => ({
             id: item.id,
-            data_hora: new Date(item.client.createdAt).toLocaleString("pt-BR").replace(",", " ás"),
+            data_hora: new Date(item.client.createdAt).toLocaleString("en-US"),
             cliente_nome: `${item.client.nome} ${item.client.sobrenome}`,
             endereco: `${item.client.endereco}, ${item.client.numero}, ${item.client.bairro}, ${item.client.cidade} - ${item.client.estado}`,
             create_appointment: item.create_appointment,
@@ -31,14 +31,14 @@ export default function Clientes() {
 
     return (
         <MainLayout
-            title="Clientes"
-            description="Overview de todos od clientes"
+            title="Clients"
+            description="Overview of all clients"
         >
             {error && <p className="text-red-500">{error}</p>}
 
 
             {<TableClients data={tableData} />}
-            {loading && <p>Carregando...</p>}
+            {loading && <p>Loading...</p>}
         </MainLayout>
 
     );

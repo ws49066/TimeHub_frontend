@@ -63,33 +63,33 @@ export function TableClients({ data }: TableProps) {
   }
 
   return (
-    <div className="bg-white flex flex-col gap-6.25 overflow-x-hidden">
-      <div className="flex flex-col gap-6.25  border border-[#D7D7D7] rounded-[5px] p-7">
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="relative flex w-full md:w-110 h-10 border border-[#D7D7D7] items-center px-3.25 gap-3.25">
-            <Search width={20} height={20} />
+    <div className="bg-white flex flex-col gap-4 sm:gap-6 overflow-x-hidden">
+      <div className="flex flex-col gap-4 sm:gap-6 border border-[#D7D7D7] rounded-[5px] p-3 sm:p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <div className="relative flex w-full sm:w-auto flex-1 h-10 border border-[#D7D7D7] items-center px-3 gap-2 rounded-[5px]">
+            <Search width={18} height={18} className="flex-shrink-0" />
             <input
               type="text"
-              className="h-5 w-full focus:outline-none"
-              placeholder="Filtrar por nome"
+              className="h-5 w-full focus:outline-none text-sm"
+              placeholder="Filter by name"
               onChange={(e) =>
                 useClientStore.getState().setFilters({ search: e.target.value })
               }
             />
           </div>
 
-          <div className="relative w-full md:w-44.25 h-10 border border-[#d7d7d7] rounded-[5px]">
+          <div className="relative w-full sm:w-44 h-10 border border-[#d7d7d7] rounded-[5px]">
             <input
               ref={inputRef}
               type="date"
-              className="w-full h-full rounded-[5px] px-3 pr-10 focus:outline-none
+              className="w-full h-full rounded-[5px] px-3 pr-10 focus:outline-none text-sm
         [&::-webkit-calendar-picker-indicator]:opacity-0"
               onChange={(e) =>
                 useClientStore.getState().setFilters({ date: e.target.value })
               }
             />
             <Calendar
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer flex-shrink-0"
               onClick={() => inputRef.current?.showPicker()}
             />
           </div>
@@ -102,13 +102,13 @@ export function TableClients({ data }: TableProps) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black">Data de cadastro</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black">Nome</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black">Registration Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black">Name</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-black hidden md:table-cell">
-                  Endereço
+                  Address
                 </th>
 
-                <th className="px-6 py-3 text-left text-xs font-medium text-black">Permissões</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black">Permissions</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-black">Status</th>
               </tr>
             </thead>
@@ -118,7 +118,7 @@ export function TableClients({ data }: TableProps) {
                   <td className="flex px-6 py-3 text-[14px] font-normal text-black">{item.data_hora}</td>
                   <td className="px-6 py-3 text-black font-medium text-sm">
                     {item.cliente_nome} <br />
-                    <span className=" text-xs font-normal border-[#D7D7D7]">Cliente</span>
+                    <span className=" text-xs font-normal border-[#D7D7D7]">Client</span>
                   </td>
                   <td className="px-6 py-3 text-[14px] font-normal text-black hidden md:table-cell">
                     {item.endereco}
@@ -128,7 +128,7 @@ export function TableClients({ data }: TableProps) {
                     <button
                       onClick={() => handleChangePermissions(item, "create_appointment", !item.create_appointment)}
                       className={`px-4 py-2 rounded-full ${!item.create_appointment ? "border bg-white" : " bg-black text-white"} `}>
-                      Agendamento
+                      Scheduling
                     </button>
 
                     <button
@@ -164,7 +164,7 @@ export function TableClients({ data }: TableProps) {
               <div className="mb-2">
                 <p className="text-sm text-gray-500">{item.data_hora}</p>
                 <p className="font-medium">{item.cliente_nome}</p>
-                <span className="text-xs text-gray-500">Cliente</span>
+                <span className="text-xs text-gray-500">Client</span>
               </div>
 
               <div className="text-sm mb-2">
@@ -178,7 +178,7 @@ export function TableClients({ data }: TableProps) {
             ${item.create_appointment ? "bg-black text-white" : "border"}
           `}
                 >
-                  Agendamento
+                  Scheduling
                 </button>
 
                 <button

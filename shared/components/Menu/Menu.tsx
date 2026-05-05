@@ -20,10 +20,10 @@ interface MenuItem {
 
 
 const menuItems: MenuItem[] = [
-  { label: "Agendamentos", href: "/agendamentos", icon: "agenda" },
-  { label: "Clientes", href: "/clientes", role: "admin", icon: "clients" },
+  { label: "Schedulings", href: "/agendamentos", icon: "agenda" },
+  { label: "Clients", href: "/clientes", role: "admin", icon: "clients" },
   { label: "Logs", href: "/logs", icon: "logs" },
-  { label: "Minha Conta", href: "/account", role: "client", icon: "account" },
+  { label: "My Account", href: "/account", role: "client", icon: "account" },
 ]
 
 const IconsGenerate = (icon, active) => {
@@ -116,7 +116,7 @@ export default function Menu() {
                   {`${nome} ${sobrenome}`}
                 </span>
                 <span className="text-xs text-zinc-500">
-                  {role === "client" ? "Cliente" : "Admin"}
+                  {role === "client" ? "Client" : "Admin"}
                 </span>
               </div>
 

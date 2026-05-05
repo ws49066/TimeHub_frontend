@@ -9,7 +9,7 @@ export function Input({ label, error, required, ...props }: InputProps) {
   return (
     <div className="flex flex-col gap-2.5">
 
-      <label className="text-[14px] font-medium">{label} {required && <span className="font-normal text-xs">(Obrigatorio)</span>}</label>
+      <label className="text-[14px] font-medium">{label} {required && <span className="font-normal text-xs">(Required)</span>}</label>
 
       <input
         {...props}

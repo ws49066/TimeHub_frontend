@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>((set) => ({
                 loading: false,
                 error:
                     err.response?.data.message ||
-                    'E-mail ou senha inválidos',
+                    'Invalid email or password',
             })
         }
     },

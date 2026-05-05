@@ -41,7 +41,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
             onClose()
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            console.log(error?.response?.data?.message || "Erro para criar agendamento")
+            console.log(error?.response?.data?.message || "Error creating scheduling")
 
         } finally {
             setLoading(false)
@@ -87,7 +87,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
 
                     <div className="flex items-center justify-between px-5 py-4 border-b border-[#D7D7D7]">
                         <h2 className="text-[16px] font-semibold text-black">
-                            Novo Agendamento
+                            New Scheduling
                         </h2>
 
                         <button onClick={onClose}>
@@ -99,7 +99,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
                     {/* Body */}
                     <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
                         <Input
-                            label="Selecione uma data"
+                            label="Select a date"
                             type="date"
                             required
                             {...register('date')}
@@ -107,7 +107,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
                         />
 
                         <TimeInput
-                            label="Selecione um horário"
+                            label="Select a time"
                             name="hour"
                             control={control}
                             required
@@ -115,7 +115,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
                         />
 
                         <Select
-                            label="Selecione uma Sala"
+                            label="Select a Room"
                             required
                             options={listRooms}
                             error={errors.roomId?.message}
@@ -140,7 +140,7 @@ export function AgendamentoModal({ onClose }: { onClose: () => void }) {
                             disabled:cursor-not-allowed
                             "
                         >
-                            {loading ? 'Confirmando...' : 'Confirmar Agendamento'}
+                            {loading ? 'Confirming...' : 'Confirm Scheduling'}
                         </button>
                     </div>
 

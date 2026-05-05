@@ -105,7 +105,7 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
                 {/* Header */}
                 <div className="flex justify-between items-center px-5 py-4 border-b border-[#D7D7D7]">
                     <h2 className="text-base font-semibold">
-                        {isCreatingRoom ? 'Adicionar nova Sala' : 'Ajustes de salas'}
+                        {isCreatingRoom ? 'Add new Room' : 'Room Settings'}
                     </h2>
                     <button onClick={onClose}>
                         <X size={18} />
@@ -134,7 +134,7 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
                                 onClick={() => setIsCreatingRoom(true)}
                                 className="text-[16px] font-medium underline flex justify-center items-center gap-2 mt-2"
                             >
-                                <Plus width={20} height={20}/> <span>Adicionar nova sala</span>
+                                <Plus width={20} height={20}/> <span>Add new room</span>
                             </button>
                         </>
                     )}
@@ -157,7 +157,7 @@ export function RoomsModal({ onClose }: { onClose: () => void }) {
                 disabled:cursor-not-allowed
               "
                         >
-                            {loading ? 'Salvando...' : 'Salvar ajustes'}
+                            {loading ? 'Saving...' : 'Save Settings'}
                         </button>
                     </div>
                 )}

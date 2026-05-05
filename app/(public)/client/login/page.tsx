@@ -38,14 +38,14 @@ export default function ClientLogin() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 sm:gap-6.25">
-      <h1 className="text-center font-semibold text-[28px]">Entre na sua conta</h1>
+      <h1 className="text-center font-semibold text-[28px]">Sign in to your account</h1>
 
       <div className="bg-white rounded-[5px] border p-4 sm:p-6 md:p-7.5gap-2.5 flex flex-col border-[#d7d7d7]">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-3.75">
             <Input
-              label="E-mail"
-              placeholder="Insira seu e-mail"
+              label="Email"
+              placeholder="Enter your email"
               type="email"
               required
               {...register('email')}
@@ -53,9 +53,9 @@ export default function ClientLogin() {
             />
 
             <Input
-              label="Senha de acesso"
+              label="Password"
               type="password"
-              placeholder="Insira sua senha"
+              placeholder="Enter your password"
               required
               {...register('password')}
               error={errors.password?.message}
@@ -78,12 +78,12 @@ export default function ClientLogin() {
                             disabled:cursor-not-allowed 
                             disabled:bg-[#D5D5D5]"
           >
-            {loading ? 'Entrando...' : 'Acessar Conta'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
           <div className="flex relative items-center gap-2 lg:gap-25 ">
-            <span className="text-sm">Ainda não tem uma cadastro?</span>
-            <a href="/client/register" className="left-67.5 text-sm font-bold underline">Cadastre-se</a>
+            <span className="text-sm">Don't have an account yet?</span>
+            <a href="/client/register" className="left-67.5 text-sm font-bold underline">Sign up</a>
           </div>
         </div>
       </div>

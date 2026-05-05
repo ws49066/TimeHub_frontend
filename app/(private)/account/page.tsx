@@ -49,15 +49,15 @@ export default function ClientRegister() {
             await api.put('/clients/edit', data)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Erro ao cadastrar cliente')
+            setError(err.response?.data?.message || 'Error registering client')
         }
     }
 
     return (
         <PagePermissionGuard permission="access_system">
             <MainLayout
-                title="Minha conta"
-                description="Ajuste informações da sua conta de forma simples"
+                title="My Account"
+                description="Adjust your account information easily"
             >
 
                 <section className="
@@ -87,16 +87,16 @@ flex justify-center px-2 sm:px-4
                                     <div className="flex flex-col gap-4 sm:flex-row sm:gap-5">
 
                                         <Input
-                                            label="Nome"
-                                            placeholder='ex.: Jose'
+                                            label="First Name"
+                                            placeholder='e.g.: Jose'
                                             required
                                             {...register('nome')}
                                             error={errors.nome?.message}
                                         />
 
                                         <Input
-                                            label="Sobrenome"
-                                            placeholder='ex.: Lima'
+                                            label="Last Name"
+                                            placeholder='e.g.: Lima'
                                             required
                                             {...register('sobrenome')}
                                             error={errors.sobrenome?.message}
@@ -104,18 +104,18 @@ flex justify-center px-2 sm:px-4
                                     </div>
 
                                     <Input
-                                        label="E-mail"
+                                        label="Email"
                                         type="email"
-                                        placeholder='Insira seu e-mail'
+                                        placeholder='Enter your email'
                                         required
                                         {...register('email')}
                                         error={errors.email?.message}
                                     />
 
                                     <Input
-                                        label="Senha de acesso"
+                                        label="Password"
                                         type="password"
-                                        placeholder='Insira sua senha'
+                                        placeholder='Enter your password'
                                         required
                                         {...register('password')}
                                         error={errors.password?.message}
@@ -124,9 +124,9 @@ flex justify-center px-2 sm:px-4
                                     <div className="w-full border border-[#d7d7d7]"></div>
 
                                     <Input
-                                        label="CEP"
+                                        label="ZIP Code"
                                         required
-                                        placeholder='Insira seu CEP'
+                                        placeholder='Enter your ZIP code'
                                         {...register('cep', {
                                             onBlur: (e) =>
                                                 fetchAddressByCep(e.target.value, setValue),
@@ -134,37 +134,37 @@ flex justify-center px-2 sm:px-4
                                         error={errors.cep?.message}
                                     />
                                     <Input
-                                        label="Endereço"
+                                        label="Address"
                                         disabled
                                         {...register('endereco')}
                                     />
 
                            
                                         <Input
-                                            label="Número"
+                                            label="Number"
                                             type="number"
                                             {...register('numero')}
                                         />
 
                                         <Input
-                                            label="Complemento"
+                                            label="Complement"
                                             {...register('complemento')}
                                         />
                                  
                                         <Input
-                                            label="Bairro"
+                                            label="Neighborhood"
                                             disabled
                                             {...register('bairro')}
                                         />
 
                                         <Input
-                                            label="Cidade"
+                                            label="City"
                                             disabled
                                             {...register('cidade')}
                                         />
 
                                     <Input
-                                        label="Estado"
+                                        label="State"
                                         disabled
                                         {...register('estado')}
                                     />
@@ -187,7 +187,7 @@ flex justify-center px-2 sm:px-4
                             disabled:cursor-not-allowed 
                             disabled:bg-[#D5D5D5]"
                                 >
-                                    Salvar
+                                    Save
                                 </button>
                             </div>
                         </div>

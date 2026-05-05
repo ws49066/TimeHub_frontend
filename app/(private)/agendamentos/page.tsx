@@ -20,7 +20,7 @@ export default function Agendamentos() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const desc = user?.role === "admin" ? "Acompanhe todos os Agendamentos de clientes de forma simples" : "Acompanhe todos os seus agendamentos de forma simples";
+    const desc = user?.role === "admin" ? "Track all client schedulings easily" : "Track all your schedulings easily";
 
     const tableData: AgendamentoFilters[] = useMemo(() => {
         const data = "2026-01-27";
@@ -28,7 +28,7 @@ export default function Agendamentos() {
 
         return agendamentos?.map((item) => ({
             id: item.id,
-            data_hora: `${new Date(ano, mes - 1, dia).toLocaleDateString("pt-BR")} às ${item.hour}`,
+            data_hora: `${new Date(ano, mes - 1, dia).toLocaleDateString("en-US")} at ${item.hour}`,
             cliente_nome: `${item.client.nome} ${item.client.sobrenome}`,
             sala: item.room.room,
             status: item.status
@@ -38,10 +38,10 @@ export default function Agendamentos() {
     return (
         <PagePermissionGuard permission="access_system">
             <MainLayout
-                title="Agendamentos"
+                title="Schedulings"
                 description={desc}
             >
-                {loading && <p>Carregando...</p>}
+                {loading && <p>Loading...</p>}
                 {error && <p className="text-red-500">{error}</p>}
 
                 {<TableSchedule data={tableData} />}

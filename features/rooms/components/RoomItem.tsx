@@ -46,23 +46,23 @@ export function RoomItem({ room, onChange }: Props) {
   return (
     <div className="pb-4 mb-4 border-b border-[#D7D7D7] space-y-3">
       <Input
-        label="Nome da sala"
+        label="Room Name"
         {...register("room")}
         error={errors.room?.message}
       />
 
       <Input
-        label="Horário"
+        label="Time"
         placeholder="08:00 - 18:00"
         {...register("timeRange")}
         error={errors.timeRange?.message}
       />
 
       <Select
-        label="Intervalo"
+        label="Interval"
         options={[
-          { label: "30 minutos", value: "30" },
-          { label: "60 minutos", value: "60" },
+          { label: "30 minutes", value: "30" },
+          { label: "60 minutes", value: "60" },
         ]}
         {...register("hourBlock")}
         error={errors.hourBlock?.message}
