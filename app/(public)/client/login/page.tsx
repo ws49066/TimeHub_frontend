@@ -81,9 +81,23 @@ export default function ClientLogin() {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
-          <div className="flex relative items-center gap-2 lg:gap-25 ">
-            <span className="text-sm">Don't have an account yet?</span>
-            <a href="/client/register" className="left-67.5 text-sm font-bold underline">Sign up</a>
+          <div className="flex flex-col gap-4">
+            <div className="flex relative items-center gap-2 lg:gap-25 ">
+              <span className="text-sm">Don't have an account yet?</span>
+              <a href="/client/register" className="left-67.5 text-sm font-bold underline">Sign up</a>
+            </div>
+            
+            <div className="border-t border-[#d7d7d7] pt-4">
+              <a 
+                href="/admin/login" 
+                className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-[#f5f5f5] border border-[#d7d7d7] rounded-[5px] text-sm font-semibold text-black hover:bg-black hover:text-white hover:border-black transition-all duration-300 ease-in-out"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+                Sign in as Admin
+              </a>
+            </div>
           </div>
         </div>
       </div>

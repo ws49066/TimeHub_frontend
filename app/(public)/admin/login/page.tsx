@@ -89,6 +89,18 @@ export default function AdminLogin() {
                     >
                         {loading ? 'Signing in...' : 'Sign In'}
                     </button>
+                    
+                    <div className="border-t border-[#D7D7D7] pt-4">
+                      <a 
+                        href="/client/login" 
+                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-[#f5f5f5] border border-[#d7d7d7] rounded-[5px] text-sm font-semibold text-black hover:bg-black hover:text-white hover:border-black transition-all duration-300 ease-in-out"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                        Sign in as Client
+                      </a>
+                    </div>
                 </div>
 
             </div>
