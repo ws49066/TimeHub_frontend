@@ -36,7 +36,7 @@ export default function AuthClientLayout({
             onClick={() => handleClick()}
             className=" bg-black text-white rounded-[5px] font-medium text-sm py-2 px-3 sm:text-[16px] sm:py-2.25 sm:px-7.5"
           >
-            {isRegister ? "Login" : "Cadastre-se"}
+            {isRegister ? "Login" : "Sign Up"}
           </button>
         </div>
 

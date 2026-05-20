@@ -1,102 +1,226 @@
 # TimeHub Frontend
 
-Sistema de gerenciamento de agendamentos desenvolvido com Next.js 16, TypeScript e React.
+**Appointment scheduling user interface** built with Next.js 16, React 19, and TypeScript.
 
-## 🚀 Tecnologias
+## 🚀 Quick Start (5 minutes)
 
-- **Next.js 16** - Framework React com App Router
-- **TypeScript** - Tipagem estática
-- **React 19** - Biblioteca UI
-- **Zustand** - Gerenciamento de estado
-- **React Hook Form** - Formulários
-- **Zod** - Validação de schemas
-- **Axios** - Cliente HTTP
-- **Material-UI** - Componentes UI
-- **Tailwind CSS** - Estilização
-- **PWA** - Progressive Web App
+```bash
+# Clone and install
+git clone https://github.com/seu-usuario/timehub-frontend.git
+cd timehub-frontend
+npm install
 
-## 📁 Estrutura do Projeto
+# Setup environment
+cp .env.example .env.local
 
-O projeto segue uma arquitetura modular e escalável, organizada por features:
+# Make sure backend is running on http://localhost:3001
 
-```
-timehub-frontend/
-├── app/                          # Next.js App Router
-│   ├── (private)/               # Rotas privadas (requerem autenticação)
-│   │   ├── account/            # Página de conta do usuário
-│   │   ├── agendamentos/       # Página de agendamentos
-│   │   ├── clientes/           # Página de clientes
-│   │   └── logs/               # Página de logs
-│   ├── (public)/               # Rotas públicas
-│   │   ├── admin/             # Área administrativa
-│   │   └── client/            # Área do cliente
-│   ├── layout.tsx              # Layout raiz
-│   └── page.tsx                # Página inicial
-│
-├── features/                    # Features do domínio (Feature-based architecture)
-│   ├── agendamentos/           # Feature: Agendamentos
-│   │   ├── components/        # Componentes específicos da feature
-│   │   ├── services/          # Serviços de API
-│   │   ├── stores/            # Estado global (Zustand)
-│   │   ├── types/             # Tipos TypeScript
-│   │   ├── schemas/           # Schemas de validação (Zod)
-│   │   ├── utils/             # Funções utilitárias
-│   │   └── index.ts           # Barrel exports
-│   ├── clientes/              # Feature: Clientes
-│   ├── logs/                  # Feature: Logs
-│   └── rooms/                 # Feature: Salas
-│
-├── shared/                      # Código compartilhado
-│   ├── api/                   # Configuração de API (Axios)
-│   ├── auth/                  # Autenticação e autorização
-│   ├── components/            # Componentes reutilizáveis
-│   │   ├── Layout/           # Layouts
-│   │   ├── Menu/            # Menu de navegação
-│   │   └── icons/           # Ícones customizados
-│   ├── guards/               # Guards de proteção de rotas
-│   ├── hooks/                # Custom hooks
-│   ├── services/             # Serviços compartilhados
-│   ├── stores/               # Stores globais (ex: auth)
-│   ├── types/                # Tipos compartilhados
-│   ├── ui/                   # Componentes UI base
-│   ├── utils/                # Utilitários compartilhados
-│   ├── constants/            # Constantes da aplicação
-│   └── index.ts              # Barrel exports
-│
-├── public/                     # Arquivos estáticos
-│   ├── icons/                # Ícones
-│   └── manifest.json         # PWA manifest
-│
-└── [config files]            # Configurações (tsconfig, next.config, etc.)
+# Start dev server
+npm run dev
 ```
 
-## 🏗️ Arquitetura
+App: `http://localhost:3000`
 
-### Feature-Based Architecture
+---
 
-O projeto utiliza uma arquitetura baseada em features, onde cada feature é auto-contida e inclui:
+## 📋 Requirements
 
-- **Components**: Componentes React específicos da feature
-- **Services**: Lógica de comunicação com API
-- **Stores**: Estado gerenciado com Zustand
-- **Types**: Definições TypeScript
-- **Schemas**: Validações com Zod
-- **Utils**: Funções auxiliares
-- **index.ts**: Barrel exports para facilitar imports
+- Node.js 18+
+- npm/yarn
+- TimeHub Backend running on port 3001
 
-### Shared Module
+---
 
-O módulo `shared` contém código reutilizável em toda a aplicação:
+## 🛠 Tech Stack
 
-- **API**: Configuração centralizada do Axios
-- **Auth**: Lógica de autenticação e tokens
-- **Components**: Componentes UI reutilizáveis
-- **Guards**: Proteção de rotas baseada em permissões
-- **Services**: Serviços compartilhados (ex: CEP)
-- **Stores**: Estado global (autenticação)
-- **UI**: Componentes base (Input, Select, Modal, etc.)
+| Component | Technology |
+|-----------|-----------|
+| **Framework** | Next.js 16 |
+| **React** | React 19 |
+| **Language** | TypeScript |
+| **UI Components** | Material-UI + Radix-UI |
+| **Styling** | Tailwind CSS |
+| **State** | Zustand |
+| **Forms** | React Hook Form + Zod |
+| **HTTP** | Axios |
+| **PWA** | next-pwa |
 
-## 📦 Como Usar
+---
+
+## 📁 Project Structure
+
+```
+app/                         # Next.js App Router
+├── (private)/              # Protected routes
+│   ├── agendamentos/       # Appointments page
+│   ├── clientes/           # Clients management
+│   └── logs/               # System logs
+├── (public)/               # Public routes
+│   ├── admin/              # Admin login
+│   └── client/             # Client login
+└── layout.tsx              # Root layout
+
+features/                   # Feature modules
+├── agendamentos/          # Appointments feature
+├── clientes/              # Clients feature
+├── logs/                  # Logs feature
+└── rooms/                 # Rooms feature
+
+shared/                    # Shared code
+├── api/                  # Axios config
+├── auth/                 # Authentication
+├── components/           # Reusable components
+├── guards/               # Route guards
+├── stores/               # Global state (Zustand)
+└── ui/                   # UI components
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+For production:
+```env
+NEXT_PUBLIC_API_URL=https://your-backend-url.railway.app
+```
+
+---
+
+## 🎮 Default Test Credentials
+
+| Type | Email | Password |
+|------|-------|----------|
+| Admin | admin@timehub.com | admin123 |
+| Client | cliente@timehub.com | cliente123 |
+
+---
+
+## 📚 Features
+
+### Admin Dashboard
+- 📊 Dashboard with statistics
+- 👥 Client management (CRUD)
+- 🏢 Room management
+- 📅 Appointment management
+- 🔐 Permission control
+- 📝 System logs
+
+### Client Area
+- 📅 View available time slots
+- ✅ Book appointments
+- 📋 Manage own appointments
+- ❌ Cancel appointments
+- 👤 View profile
+
+---
+
+## 📦 Available Scripts
+
+```bash
+npm run dev      # Development server
+npm run build    # Build for production
+npm start        # Run production build
+npm run lint     # Run ESLint
+```
+
+---
+
+## 🔌 API Integration
+
+All API calls go through:
+- **Base URL:** `NEXT_PUBLIC_API_URL`
+- **Auth Header:** `Authorization: Bearer {token}`
+- **Token Storage:** localStorage
+- **Refresh:** Automatic on 401 response
+
+---
+
+## 🧪 Testing
+
+### Manual Testing Steps
+
+1. **Login as Admin**
+   - Go to `http://localhost:3000/admin`
+   - Email: `admin@timehub.com`
+   - Password: `admin123`
+
+2. **Create Client**
+   - Click "Clients"
+   - Click "Add Client"
+   - Fill form and save
+
+3. **Create Appointment**
+   - Click "Appointments"
+   - Select client and room
+   - Choose available time
+   - Save
+
+4. **Test as Client**
+   - Go to `http://localhost:3000/client`
+   - Email: `cliente@timehub.com`
+   - Password: `cliente123`
+   - View and create own appointments
+
+---
+
+## 🚀 Production Build
+
+```bash
+# Build optimized production bundle
+npm run build
+
+# Test production build locally
+npm start
+```
+
+Deploy to Vercel:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Set environment variable:
+# NEXT_PUBLIC_API_URL=https://your-backend.railway.app
+```
+
+---
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Port 3000 in use | `npm run dev -- -p 3002` |
+| API errors | Check if backend is running |
+| CORS error | Verify `NEXT_PUBLIC_API_URL` in `.env.local` |
+| Build fails | `rm -rf .next node_modules && npm install` |
+| Auth fails | Clear localStorage and login again |
+
+---
+
+## 📖 More Info
+
+- [Backend Repository](https://github.com/ws49066/TimeHub_backend)
+- [Installation Guide](./INSTALLATION.md)
+- [Live Demo](https://timehub-frontend.vercel.app)
+
+---
+
+## 📄 License
+
+ISC License
+
+---
+
+**Start coding! 🚀**
 
 ### Instalação
 

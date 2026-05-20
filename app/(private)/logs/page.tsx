@@ -29,7 +29,7 @@ export default function Logs() {
 
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (err: any) {
-                setError(err.response?.data?.message || "Erro ao carregar os logs.")
+                setError(err.response?.data?.message || "Error loading logs.")
             } finally {
                 setLoading(false)
             }
@@ -39,7 +39,7 @@ export default function Logs() {
     }, [setLogs])
 
 
-    const desc = user?.role === "admin" ? "Acompanhe todos os Logs dos clientes" : "Acompanhe todos os seus Logs";
+    const desc = user?.role === "admin" ? "Monitor all client logs" : "Monitor all your logs";
 
     return (
         <PagePermissionGuard permission="view_logs">
@@ -47,7 +47,7 @@ export default function Logs() {
                 title="Logs"
                 description={desc}
             >
-                {loading && <p>Carregando...</p>}
+                {loading && <p>Loading...</p>}
                 {error && <p className="text-red-500">{error}</p>}
 
                 {<TableLogs />}
